@@ -4,12 +4,12 @@ require(`dotenv`).config({
 
 module.exports = {
   siteMetadata: {
-    title: `Valley Harvest`,
-    titleTemplate: `%s - Valley Harvest`,
-    description: `Valley Harvest is...`,
-    keywords: `Valley,Harvest,keywords`,
-    author: `Love + Money (dan@loveandmoney.agency)`,
-    url: `https://www.valleyharvest.com`,
+    title: `Site Title`,
+    titleTemplate: `%s - Site Title`,
+    description: `Site Title is...`,
+    keywords: `Site,keywords`,
+    author: `dan@loveandmoney.agency`,
+    url: `https://www.siteaddress.com`,
     image: `/images/site-image.svg`,
     twitterUsername: `@twitter`
   },
@@ -17,13 +17,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Food Foundry`,
-        short_name: `food-foundry`,
+        name: `Site Title`,
+        short_name: `site-title`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
-        display: `minimal-ui`
-        // icon: `${__dirname}/src/assets/images/favicon.png`
+        display: `minimal-ui`,
+        icon: `${__dirname}/src/assets/images/favicon.png`
       }
     },
     {
