@@ -1,0 +1,155 @@
+////////////
+
+// @font-face {
+//   font-family: "font-name";
+//   src: url("../assets/fonts/font-name.eot");
+//   src: url("../assets/fonts/font-name.eot?#iefix")
+//       format("embedded-opentype"),
+//     url("../assets/fonts/font-name.woff") format("woff"),
+//     url("../assets/fonts/font-name.ttf") format("truetype"),
+//     url("../assets/fonts/font-name.svg#svgFontName") format("svg");
+//   font-display: block;
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+////////////
+
+@mixin f1 {
+  // @include sm {
+  // }
+
+  font-family: "Arial Narrow Bold", sans-serif;
+
+  font-size: 92px;
+  line-height: 80px;
+}
+
+.f1 {
+  @include f1;
+}
+
+//
+
+@mixin f2 {
+  // @include sm {
+  // }
+
+  font-family: "Arial Narrow Bold", sans-serif;
+
+  font-size: 72px;
+  line-height: 60px;
+  letter-spacing: -0.2px;
+}
+
+.f2 {
+  @include f2;
+}
+
+//
+
+@mixin f3 {
+  // @include sm {
+  // }
+
+  font-family: "Arial Narrow Bold", sans-serif;
+
+  font-size: 48px;
+  line-height: 42px;
+  letter-spacing: 1px;
+}
+
+.f3 {
+  @include f3;
+}
+
+//
+
+@mixin f4 {
+  font-family: Helvetica, sans-serif;
+
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.f4 {
+  @include f4;
+}
+
+//
+
+@mixin f5 {
+  // @include sm {
+  // }
+
+  font-family: "Arial Narrow Bold", sans-serif;
+
+  font-size: 30px;
+  line-height: 28px;
+  letter-spacing: 0.1px;
+}
+
+.f5 {
+  @include f5;
+}
+
+//
+
+@mixin b1 {
+  // @include sm {
+  // }
+
+  font-family: Helvetica, sans-serif;
+
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.b1 {
+  @include b1;
+}
+
+//
+
+@mixin b2 {
+  // @include sm {
+  // }
+
+  font-family: Helvetica, sans-serif;
+
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.b2 {
+  @include b2;
+}
+
+//
+
+@mixin b3 {
+  // @include sm {
+  // }
+
+  font-family: Helvetica, sans-serif;
+
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.b3 {
+  @include b3;
+}
+
+//
+
+@mixin caption {
+  font-family: Helvetica, sans-serif;
+
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.caption {
+  @include caption;
+}

@@ -1,0 +1,25 @@
+////////////
+
+// transitions
+
+$ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+$default-transition-speed: 300ms;
+$default-transition: $default-transition-speed $ease-out-cubic;
+
+$slow-transition-speed: 500ms;
+$slow-transition: $slow-transition-speed $ease-out-cubic;
+
+$fast-transition-speed: 150ms;
+$fast-transition: $fast-transition-speed $ease-out-cubic;
+
+////////////
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}

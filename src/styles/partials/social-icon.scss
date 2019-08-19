@@ -1,0 +1,89 @@
+.social-icon {
+  @include sm {
+    width: 44px;
+    height: 44px;
+    background-size: calc(100% - 12px);
+  }
+
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  //
+
+  // &--email-black {
+  //   background-image: url(../assets/images/icons/email-black.svg);
+  // }
+
+  // &--email-white {
+  //   background-image: url(../assets/images/icons/email-white.svg);
+  // }
+
+  //
+
+  // &--facebook-black {
+  //   background-image: url(../assets/images/icons/facebook-black.svg);
+  // }
+
+  // &--facebook-white {
+  //   background-image: url(../assets/images/icons/facebook-white.svg);
+  // }
+
+  //
+
+  // &--instagram-black {
+  //   background-image: url(../assets/images/icons/instagram-black.svg);
+  // }
+
+  // &--instagram-white {
+  //   background-image: url(../assets/images/icons/instagram-white.svg);
+  // }
+
+  //
+
+  // &--linkedin-black {
+  //   background-image: url(../assets/images/icons/linkedin-black.svg);
+  // }
+
+  // &--linkedin-white {
+  //   background-image: url(../assets/images/icons/linkedin-white.svg);
+  // }
+
+  //
+
+  // &--twitter-black {
+  //   background-image: url(../assets/images/icons/twitter-black.svg);
+  // }
+
+  // &--twitter-white {
+  //   background-image: url(../assets/images/icons/twitter-white.svg);
+  // }
+
+  //
+
+  // &--tumblr-black {
+  //   background-image: url(../assets/images/icons/tumblr-black.svg);
+  // }
+
+  // &--tumblr-white {
+  //   background-image: url(../assets/images/icons/tumblr-white.svg);
+  // }
+
+  //
+
+  // &--youtube-black {
+  //   background-image: url(../assets/images/icons/youtube-black.svg);
+  // }
+
+  // &--youtube-white {
+  //   background-image: url(../assets/images/icons/youtube-white.svg);
+  // }
+
+  //
+
+  span {
+    display: none;
+  }
+}

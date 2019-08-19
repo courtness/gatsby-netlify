@@ -1,0 +1,41 @@
+# backend:
+# name: git-gateway
+# repo: loveandmoney/sitekey
+# branch: master
+
+# site_url: https://sitekey.netlify.com/
+
+media_folder: static/uploads
+public_folder: uploads
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    editor:
+      preview: false
+    files:
+      - file: "src/pages/index.md"
+        label: "Home"
+        name: "home"
+        fields:
+          - label: "Template Key"
+            name: "templateKey"
+            widget: "hidden"
+            default: "index-page"
+
+          - label: "Title"
+            name: "title"
+            widget: "string"
+            hint: "This is used both by the title meta tag, and by a hidden <h1> tag in the home page HTML."
+
+          - label: "SEO Description"
+            name: "description"
+            required: false
+            widget: "string"
+            hint: "This is used by the description meta tag."
+
+          - label: "SEO Keywords"
+            name: "keywords"
+            required: false
+            widget: "string"
+            hint: "This is used by the keywords meta tag."
