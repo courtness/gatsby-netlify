@@ -1,9 +1,4 @@
-/* eslint-disable react/prop-types */
-// TODO : figure out propType validation for these
-
 import React, { Component } from "react";
-import { Link } from "gatsby";
-import Draggable from "react-draggable";
 import Layout from "~components/Layout";
 
 class NotFoundComponent extends Component {
@@ -23,15 +18,11 @@ class NotFoundComponent extends Component {
     return (
       <>
         <Layout
-          className={`not-found w-full relative grid ${
+          className={`not-found w-full relative flex-center ${
             this.state.mounted ? `mounted` : ``
           }`}
         >
-          <section className="h-100 grid__colend--29 grid__colend--sm-18 grid__start--11 grid__start--sm-2 relative flex-center flex--column">
-            <h1 className="not-found__heading bg-black f1 uppercase white">
-              404: Error
-            </h1>
-          </section>
+          <h1 className="f1">404</h1>
         </Layout>
       </>
     );

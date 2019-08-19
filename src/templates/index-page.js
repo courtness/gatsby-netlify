@@ -1,6 +1,3 @@
-/* eslint-disable react/prop-types */
-// TODO : figure out propType validation for these
-
 import React, { Component } from "react";
 import { graphql } from "gatsby";
 import { AppContext } from "~context/AppContext";
