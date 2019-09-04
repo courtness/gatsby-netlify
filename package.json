@@ -1,10 +1,10 @@
 {
-  "name": "valley-harvest",
+  "name": "gatsby-netlify-template",
   "private": true,
-  "description": "Valley Harvest",
+  "description": "Gatsby Netlify Template Repository",
   "license": "MIT",
   "version": "0.1.0",
-  "author": "Love + Money <dan@loveandmoney.agency>",
+  "author": "Dan Courtness <danielcourtness@gmail.com>",
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby clean && gatsby develop",
