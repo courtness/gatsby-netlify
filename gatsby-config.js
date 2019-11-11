@@ -40,6 +40,15 @@ module.exports = {
       }
     },
     {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true,
+        // develop: true,
+        tailwind: true,
+        whitelistPatterns: [/glide/]
+      }
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/static/uploads`,
