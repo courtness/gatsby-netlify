@@ -1,14 +1,13 @@
-@import "./vendor/_reset.scss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @import "layout.scss";
-@import "colors.scss";
 @import "fonts.scss";
 @import "transitions.scss";
 
 @import "base.scss";
 @import "common.scss";
-
-@import "./partials/social-icon.scss";
 
 @import "./templates/404.scss";
 @import "./templates/index-page.scss";

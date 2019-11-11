@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { PropTypes } from "prop-types";
 import { graphql } from "gatsby";
 import { AppContext } from "~context/AppContext";
 import Layout from "~components/Layout";
@@ -20,12 +21,14 @@ class IndexPageComponent extends Component {
   //
 
   render() {
+    const { frontmatter } = this.props.data.markdownRemark;
+
     return (
       <>
         <SEO
-          title={this.props.frontmatter.title}
-          description={this.props.frontmatter.description}
-          keywords={this.props.frontmatter.keywords}
+          title={frontmatter.title}
+          description={frontmatter.description}
+          keywords={frontmatter.keywords}
         />
 
         <Layout
@@ -33,26 +36,41 @@ class IndexPageComponent extends Component {
             this.state.mounted ? `mounted` : ``
           }`}
         >
-          <h1 className="f1">{this.props.frontmatter.title}</h1>
+          <h1 className="f1">{frontmatter.title}</h1>
         </Layout>
       </>
     );
   }
 }
 
-const IndexPage = ({ data }) => {
-  const { siteMetadata: metadata } = data.site;
-  const { frontmatter } = data.markdownRemark;
+IndexPageComponent.defaultProps = {
+  data: {
+    markdownRemark: {
+      frontmatter: {
+        title: `Home`,
+        description: ``,
+        keywords: ``
+      }
+    }
+  }
+};
 
+IndexPageComponent.propTypes = {
+  data: PropTypes.shape({
+    markdownRemark: PropTypes.shape({
+      frontmatter: PropTypes.shape({
+        title: PropTypes.string,
+        description: PropTypes.string,
+        keywords: PropTypes.string
+      })
+    })
+  })
+};
+
+const IndexPage = props => {
   return (
     <AppContext.Consumer>
-      {appContext => (
-        <IndexPageComponent
-          frontmatter={frontmatter}
-          appContext={appContext}
-          metadata={metadata}
-        />
-      )}
+      {appContext => <IndexPageComponent appContext={appContext} {...props} />}
     </AppContext.Consumer>
   );
 };
@@ -66,17 +84,6 @@ export const indexPageQuery = graphql`
         title
         description
         keywords
-      }
-    }
-    site {
-      siteMetadata {
-        title
-        description
-        keywords
-        author
-        url
-        image
-        twitterUsername
       }
     }
   }

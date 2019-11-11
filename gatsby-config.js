@@ -2,14 +2,17 @@ require(`dotenv`).config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
+const autoprefixer = require(`autoprefixer`);
+const tailwindCss = require(`tailwindcss`)(`./tailwind.config.js`);
+
 module.exports = {
   siteMetadata: {
     title: `Site Title`,
     titleTemplate: `%s - Site Title`,
     description: `Site Title is...`,
     keywords: `Site,keywords`,
-    author: `dan@loveandmoney.agency`,
-    url: `https://www.siteaddress.com`,
+    author: `danielcourtness@gmail.com`,
+    url: ``,
     image: `/images/site-image.svg`,
     twitterUsername: `@twitter`
   },
@@ -30,7 +33,12 @@ module.exports = {
       resolve: `gatsby-plugin-no-sourcemaps`
     },
     `gatsby-plugin-root-import`,
-    `gatsby-plugin-sass`,
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        postCssPlugins: [autoprefixer, tailwindCss]
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

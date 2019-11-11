@@ -32,8 +32,7 @@
         ["~components", "./src/components"],
         ["~context", "./src/context"],
         ["~node_modules", "./node_modules"],
-        ["~pages", "./src/pages"],
-        ["~styles", "./src/styles"],
+        ["~scss", "./src/scss"],
         ["~utils", "./src/utils"]
       ]
     }

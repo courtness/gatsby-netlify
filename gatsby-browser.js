@@ -12,12 +12,12 @@ import "lazysizes";
 
 import AppProvider from "~context/AppContext";
 
+import "~scss/index.scss";
+
 export const wrapRootElement = ({ element }) => {
   return (
     <>
-      <AppProvider>
-        {element}
-      </AppProvider>
+      <AppProvider>{element}</AppProvider>
     </>
   );
 };
