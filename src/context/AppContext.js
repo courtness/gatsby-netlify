@@ -10,45 +10,48 @@ class AppProvider extends Component {
     cursorCenterDeltaY: 0, // 0 at center, -0.5/0.5 at edges
     cursorPositionX: 0,
     cursorPositionY: 0,
+    device: ``,
     documentHeight: 0,
     scrollTop: 0,
     windowWidth: 0,
     windowHeight: 0,
 
-    // custom project state data...
+    //
+
+    dark: false,
+    menuActive: false
   };
+
+  mobileWidth = 768;
+
+  tabletWidth = 1024;
 
   //
   // React lifecycle
 
   componentDidMount() {
-    this.updateWindowDimensions();
+    setTimeout(() => {
+      this.updateWindowDimensions();
+    });
 
     document.removeEventListener(`mousemove`, this.updateCursorPosition, false);
     document.removeEventListener(`resize`, this.updateWindowDimensions, false);
     document.removeEventListener(`scroll`, this.updateScrollTop, false);
 
     document.addEventListener(`mousemove`, this.updateCursorPosition, false);
-    document.addEventListener(`resize`, this.updateWindowDimensions, false);
     document.addEventListener(`scroll`, this.updateScrollTop, false);
 
-    window.addEventListener(`touchstart`, this.touchStart);
-    window.addEventListener(`touchmove`, this.preventTouch, { passive: false });
+    window.addEventListener(`resize`, this.updateWindowDimensions, false);
   }
 
   componentWillUnmount() {
     document.removeEventListener(`mousemove`, this.updateCursorPosition, false);
     document.removeEventListener(`resize`, this.updateWindowDimensions, false);
     document.removeEventListener(`scroll`, this.updateScrollTop, false);
-
-    window.removeEventListener(`touchstart`, this.touchStart);
-    window.removeEventListener(`touchmove`, this.preventTouch, {
-      passive: false
-    });
   }
 
   //
-  // event handlers
+  // listeners
 
   updateCursorPosition = event => {
     this.setState(prevState => ({
@@ -62,45 +65,52 @@ class AppProvider extends Component {
     }));
   };
 
-  updateWindowDimensions = () => {
-    this.setState({
-      documentHeight: document.documentElement.offsetHeight,
-      windowWidth: getWindowDimensions().width,
-      windowHeight: getWindowDimensions().height
-    });
-  };
-
   updateScrollTop = e => {
     this.setState({
       scrollTop: e.target.scrollingElement.scrollTop
     });
   };
 
-  touchStart(e) {
-    this.firstClientX = e.touches[0].clientX;
-    this.firstClientY = e.touches[0].clientY;
-  }
+  updateWindowDimensions = () => {
+    let device = `desktop`;
 
-  // eslint-disable-next-line consistent-return
-  preventTouch(e) {
-    const minValue = 5;
-
-    this.clientX = e.touches[0].clientX - this.firstClientX;
-    this.clientY = e.touches[0].clientY - this.firstClientY;
-
-    if (Math.abs(this.clientX) > minValue) {
-      e.preventDefault();
-      e.returnValue = false;
-
-      return false;
+    if (
+      window.matchMedia(
+        `(min-width: ${this.mobileWidth}px) and (max-width: ${this.tabletWidth}px)`
+      ).matches
+    ) {
+      device = `tablet`;
+    } else if (
+      window.matchMedia(`(max-width: ${this.mobileWidth - 1}px)`).matches
+    ) {
+      device = `mobile`;
     }
-  }
+
+    this.setState({
+      device,
+      documentHeight: document.documentElement.offsetHeight,
+      windowWidth: getWindowDimensions().width,
+      windowHeight: getWindowDimensions().height
+    });
+  };
 
   //
+  // API
 
-  // custom project API...
+  setDark = dark => {
+    this.setState({
+      dark
+    });
+  };
+
+  setMenuActive = menuActive => {
+    this.setState({
+      menuActive
+    });
+  };
 
   //
+  // render/wrapper
 
   render() {
     return (
@@ -110,14 +120,17 @@ class AppProvider extends Component {
           cursorCenterDeltaY: this.state.cursorCenterDeltaY,
           cursorPositionX: this.state.cursorPositionX,
           cursorPositionY: this.state.cursorPositionY,
+          device: this.state.device,
           documentHeight: this.state.documentHeight,
           scrollTop: this.state.scrollTop,
           windowWidth: this.state.windowWidth,
-          windowHeight: this.state.windowHeight
+          windowHeight: this.state.windowHeight,
           //
-          // custom project state data...
+          dark: this.state.dark,
+          menuActive: this.state.menuActive,
           //
-          // custom project API...
+          setDark: this.setDark,
+          setMenuActive: this.setMenuActive
         }}
       >
         {this.props.children}
@@ -127,7 +140,7 @@ class AppProvider extends Component {
 }
 
 AppProvider.propTypes = {
-  children: PropTypes.shape({}).isRequired
+  children: PropTypes.instanceOf(Array).isRequired
 };
 
 export default AppProvider;

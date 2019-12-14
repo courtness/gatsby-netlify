@@ -2,12 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "layout.scss";
-@import "fonts.scss";
 @import "transitions.scss";
+@import "screen.scss";
+@import "grid.scss";
+@import "fonts.scss";
 
 @import "base.scss";
 @import "common.scss";
 
 @import "./templates/404.scss";
+@import "./templates/about-page.scss";
+@import "./templates/contact-page.scss";
 @import "./templates/index-page.scss";
+
+@import "./components/Header.scss";
+@import "./components/Nav.scss";

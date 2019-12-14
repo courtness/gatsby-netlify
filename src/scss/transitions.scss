@@ -1,7 +1,3 @@
-////////////
-
-// transitions
-
 $ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 
 $default-transition-speed: 300ms;
@@ -13,13 +9,58 @@ $slow-transition: $slow-transition-speed $ease-out-cubic;
 $fast-transition-speed: 150ms;
 $fast-transition: $fast-transition-speed $ease-out-cubic;
 
-////////////
+//
 
-@keyframes marquee {
-  0% {
+@keyframes appear {
+  from {
+    transform: translate3d(0, 14px, 0);
+    opacity: 0;
+  }
+  to {
     transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
-  100% {
-    transform: translate3d(-100%, 0, 0);
+}
+
+.animation-appear {
+  animation: $slow-transition appear forwards;
+
+  transform: translate3d(0, 14px, 0);
+  opacity: 0;
+}
+
+@keyframes appear-left {
+  from {
+    transform: translate3d(14px, 0, 0);
+    opacity: 0;
   }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animation-appear-left {
+  animation: $slow-transition appear-left forwards;
+
+  transform: translate3d(0, 14px, 0);
+  opacity: 0;
+}
+
+@keyframes appear-right {
+  from {
+    transform: translate3d(-14px, 0, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animation-appear-right {
+  animation: $slow-transition appear-left forwards;
+
+  transform: translate3d(0, -14px, 0);
+  opacity: 0;
 }
