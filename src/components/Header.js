@@ -33,7 +33,7 @@ class HeaderComponent extends Component {
             </button>
 
             <Link to="/">
-              <h2 className="f4">Acumen</h2>
+              <h2 className="f4">Site name</h2>
             </Link>
           </div>
         </nav>
