@@ -32,7 +32,7 @@ class IndexPageComponent extends Component {
         />
 
         <Layout
-          className={`index-page w-full relative flex-center ${
+          className={`index-page w-full relative pt-12 ${
             this.state.mounted ? `mounted` : ``
           }`}
         >
