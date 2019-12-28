@@ -32,7 +32,7 @@ class ContactPageComponent extends Component {
         />
 
         <Layout
-          className={`contact-page w-full relative flex-center ${
+          className={`contact-page w-full relative ${
             this.state.mounted ? `mounted` : ``
           }`}
         >

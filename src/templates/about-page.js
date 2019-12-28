@@ -32,7 +32,7 @@ class AboutPageComponent extends Component {
         />
 
         <Layout
-          className={`about-page w-full relative flex-center ${
+          className={`about-page w-full relative ${
             this.state.mounted ? `mounted` : ``
           }`}
         >

@@ -18,7 +18,7 @@ class NotFoundComponent extends Component {
     return (
       <>
         <Layout
-          className={`not-found w-full relative flex-center ${
+          className={`not-found w-full relative ${
             this.state.mounted ? `mounted` : ``
           }`}
         >
