@@ -36,7 +36,7 @@ class HeaderComponent extends Component {
               <div className="header__menu__line header__menu__line--2"></div>
             </button>
 
-            <Link to="/">
+            <Link to="/" className="block text-black">
               <h2 className="f4">Header</h2>
             </Link>
           </div>
