@@ -1,7 +1,7 @@
 ---
 templateKey: index-page
 title: Home
-description: >-
+seoDescription: >-
   Home page description
-keywords: "Home,page,keywords"
+seoKeywords: "Home,page,keywords"
 ---

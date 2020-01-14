@@ -4,38 +4,28 @@ import { graphql } from "gatsby";
 import { AppContext } from "~context/AppContext";
 import Layout from "~components/Layout";
 import SEO from "~components/SEO";
+import { fancyLog } from "~utils/helpers";
 
 class IndexPageComponent extends Component {
-  state = {
-    mounted: false
-  };
-
-  //
-
   componentDidMount() {
-    this.setState({
-      mounted: true
-    });
+    fancyLog(`Index page`);
   }
 
   //
 
   render() {
-    const { frontmatter } = this.props.data.markdownRemark;
+    const { frontmatter, location } = this.props;
 
     return (
       <>
         <SEO
-          title={frontmatter.title}
-          description={frontmatter.description}
-          keywords={frontmatter.keywords}
+          customTitle={frontmatter.title}
+          customDescription={frontmatter.seoDescription}
+          customKeywords={frontmatter.seoKeywords}
+          path={location.pathname}
         />
 
-        <Layout
-          className={`index-page w-full relative pt-12 ${
-            this.state.mounted ? `mounted` : ``
-          }`}
-        >
+        <Layout className="index-page w-full relative">
           <h1 className="f1">{frontmatter.title}</h1>
         </Layout>
       </>
@@ -43,47 +33,53 @@ class IndexPageComponent extends Component {
   }
 }
 
-IndexPageComponent.defaultProps = {
-  data: {
-    markdownRemark: {
-      frontmatter: {
-        title: `Home`,
-        description: ``,
-        keywords: ``
-      }
-    }
-  }
-};
-
 IndexPageComponent.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.shape({
-        title: PropTypes.string,
-        description: PropTypes.string,
-        keywords: PropTypes.string
-      })
-    })
-  })
+  frontmatter: PropTypes.shape({
+    title: PropTypes.string,
+    seoDescription: PropTypes.string,
+    seoKeywords: PropTypes.string
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
 };
 
-const IndexPage = props => {
+//
+
+const IndexPage = ({ data, location }) => {
+  const { frontmatter } = data.markdownRemark;
+
   return (
     <AppContext.Consumer>
-      {appContext => <IndexPageComponent appContext={appContext} {...props} />}
+      {appContext => (
+        <IndexPageComponent
+          appContext={appContext}
+          frontmatter={frontmatter}
+          location={location}
+        />
+      )}
     </AppContext.Consumer>
   );
 };
 
+IndexPage.propTypes = {
+  data: PropTypes.shape({
+    markdownRemark: PropTypes.shape({
+      frontmatter: PropTypes.shape({})
+    })
+  }).isRequired,
+  location: PropTypes.shape({}).isRequired
+};
+
 export default IndexPage;
 
-export const indexPageQuery = graphql`
+export const query = graphql`
   query IndexPage($id: String!) {
     markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
-        description
-        keywords
+        seoDescription
+        seoKeywords
       }
     }
   }

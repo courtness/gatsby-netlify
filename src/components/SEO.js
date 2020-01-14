@@ -7,55 +7,54 @@ const query = graphql`
   query SEO {
     site {
       siteMetadata {
-        defaultTitle: title
-        titleTemplate
-        defaultDescription: description
+        description
         keywords
-        siteUrl: url
-        defaultImage: image
+        title
+        titleTemplate
         twitterUsername
+        url
       }
     }
   }
 `;
 
-const SEO = ({ title, description, keywords, image, pathname, article }) => (
-  <StaticQuery
-    query={query}
-    render={({
-      site: {
-        siteMetadata: {
-          defaultTitle,
-          titleTemplate,
-          defaultDescription,
-          defaultKeywords,
-          siteUrl,
-          defaultImage,
-          twitterUsername
-        }
-      }
-    }) => {
-      const seo = {
-        title: title || defaultTitle,
-        description: description || defaultDescription,
-        keywords: keywords || defaultKeywords,
-        image: `${siteUrl}${image || defaultImage}`,
-        url: `${siteUrl}${pathname || `/`}`
-      };
+const SEO = props => {
+  const { customDescription, customKeywords, path, customTitle } = props;
 
-      return (
-        <>
+  return (
+    <StaticQuery
+      query={query}
+      render={({
+        site: {
+          siteMetadata: {
+            description,
+            image,
+            keywords,
+            title,
+            titleTemplate,
+            twitterUsername,
+            url
+          }
+        }
+      }) => {
+        const seo = {
+          description: customDescription || description,
+          keywords: customKeywords || keywords,
+          image: `${url}${image}`,
+          title: customTitle || title,
+          url: `${url}/${path || ``}`
+        };
+
+        return (
           <Helmet title={seo.title} titleTemplate={titleTemplate}>
+            <html lang="en" />
+
             <meta name="description" content={seo.description} />
             <meta name="image" content={seo.image} />
 
             {seo.keywords && <meta name="keywords" content={seo.keywords} />}
 
             {seo.url && <meta property="og:url" content={seo.url} />}
-
-            {(article ? true : null) && (
-              <meta property="og:type" content="article" />
-            )}
 
             {seo.title && <meta property="og:title" content={seo.title} />}
 
@@ -79,28 +78,24 @@ const SEO = ({ title, description, keywords, image, pathname, article }) => (
 
             {seo.image && <meta name="twitter:image" content={seo.image} />}
           </Helmet>
-        </>
-      );
-    }}
-  />
-);
-
-export default SEO;
-
-SEO.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  image: PropTypes.string,
-  pathname: PropTypes.string,
-  keywords: PropTypes.string,
-  article: PropTypes.bool
+        );
+      }}
+    />
+  );
 };
 
 SEO.defaultProps = {
-  title: null,
-  description: null,
-  image: null,
-  pathname: null,
-  keywords: null,
-  article: false
+  customDescription: null,
+  customKeywords: null,
+  customTitle: null,
+  path: null
 };
+
+SEO.propTypes = {
+  customDescription: PropTypes.string,
+  customKeywords: PropTypes.string,
+  customTitle: PropTypes.string,
+  path: PropTypes.string
+};
+
+export default SEO;

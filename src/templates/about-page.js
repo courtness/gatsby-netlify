@@ -4,38 +4,28 @@ import { graphql } from "gatsby";
 import { AppContext } from "~context/AppContext";
 import Layout from "~components/Layout";
 import SEO from "~components/SEO";
+import { fancyLog } from "~utils/helpers";
 
 class AboutPageComponent extends Component {
-  state = {
-    mounted: false
-  };
-
-  //
-
   componentDidMount() {
-    this.setState({
-      mounted: true
-    });
+    fancyLog(`About page`);
   }
 
   //
 
   render() {
-    const { frontmatter } = this.props.data.markdownRemark;
+    const { frontmatter, location } = this.props;
 
     return (
       <>
         <SEO
-          title={frontmatter.title}
-          description={frontmatter.description}
-          keywords={frontmatter.keywords}
+          customTitle={frontmatter.title}
+          customDescription={frontmatter.seoDescription}
+          customKeywords={frontmatter.seoKeywords}
+          path={location.pathname}
         />
 
-        <Layout
-          className={`about-page w-full relative ${
-            this.state.mounted ? `mounted` : ``
-          }`}
-        >
+        <Layout className="index-page w-full relative">
           <h1 className="f1">{frontmatter.title}</h1>
         </Layout>
       </>
@@ -43,36 +33,42 @@ class AboutPageComponent extends Component {
   }
 }
 
-AboutPageComponent.defaultProps = {
-  data: {
-    markdownRemark: {
-      frontmatter: {
-        title: `Home`,
-        description: ``,
-        keywords: ``
-      }
-    }
-  }
-};
-
 AboutPageComponent.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.shape({
-        title: PropTypes.string,
-        description: PropTypes.string,
-        keywords: PropTypes.string
-      })
-    })
-  })
+  frontmatter: PropTypes.shape({
+    title: PropTypes.string,
+    seoDescription: PropTypes.string,
+    seoKeywords: PropTypes.string
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
 };
 
-const AboutPage = props => {
+//
+
+const AboutPage = ({ data, location }) => {
+  const { frontmatter } = data.markdownRemark;
+
   return (
     <AppContext.Consumer>
-      {appContext => <AboutPageComponent appContext={appContext} {...props} />}
+      {appContext => (
+        <AboutPageComponent
+          appContext={appContext}
+          frontmatter={frontmatter}
+          location={location}
+        />
+      )}
     </AppContext.Consumer>
   );
+};
+
+AboutPage.propTypes = {
+  data: PropTypes.shape({
+    markdownRemark: PropTypes.shape({
+      frontmatter: PropTypes.shape({})
+    })
+  }).isRequired,
+  location: PropTypes.shape({}).isRequired
 };
 
 export default AboutPage;
@@ -82,8 +78,8 @@ export const query = graphql`
     markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
-        description
-        keywords
+        seoDescription
+        seoKeywords
       }
     }
   }

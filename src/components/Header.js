@@ -6,16 +6,20 @@ import { AppContext } from "~context/AppContext";
 
 class HeaderComponent extends Component {
   toggleMenu = () => {
-    this.props.appContext.setMenuActive(!this.props.appContext.menuActive);
+    const { appContext } = this.props;
+
+    appContext.setMenuActive(!appContext.menuActive);
   };
 
   //
 
   render() {
+    const { appContext } = this.props;
+
     return (
       <header
         className={`header w-full fixed top-0 right-0 left-0 z-30 py-2 ${
-          this.props.appContext.menuActive ? ` menu-active` : ``
+          appContext.menuActive ? ` menu-active` : ``
         }`}
       >
         <nav className="relative grid">
@@ -23,7 +27,7 @@ class HeaderComponent extends Component {
             <button
               type="button"
               className={`header__menu mr-8 gpu ${
-                this.props.appContext.menuActive ? `menu-active` : ``
+                appContext.menuActive ? `menu-active` : ``
               } relative`}
               onClick={this.toggleMenu}
             >
@@ -33,7 +37,7 @@ class HeaderComponent extends Component {
             </button>
 
             <Link to="/">
-              <h2 className="f4">Site name</h2>
+              <h2 className="f4">Header</h2>
             </Link>
           </div>
         </nav>

@@ -50,10 +50,11 @@ exports.createPages = ({ actions, graphql }) => {
       throw result.errors;
     }
 
-    const posts = result.data.allMarkdownRemark.edges;
+    const pages = result.data.allMarkdownRemark.edges;
 
-    posts.forEach(edge => {
+    pages.forEach(edge => {
       const { id } = edge.node;
+
       createPage({
         path: edge.node.fields.slug,
         component: path.resolve(
