@@ -1,24 +1,22 @@
 const mobileWidth = 768;
 const tabletWidth = 1024;
 
-export function isJumbo() {
-  return getWindowWidth() > 1440;
-}
-
 export function isDesktop() {
   return window.matchMedia(`(min-width: ${tabletWidth + 1}px)`).matches;
-}
-
-export function isTablet() {
-  return window.matchMedia(`(min-width: ${mobileWidth}px) and (max-width: ${tabletWidth}px)`).matches;
 }
 
 export function isMobile() {
   return window.matchMedia(`(max-width: ${mobileWidth - 1}px)`).matches;
 }
 
-export function isMobileSafari() {
-  return isMobile() && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream && !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/);
+export function isIOS() {
+  return !!navigator.platform.match(/iPhone|iPod|iPad/);
+}
+
+export function isTablet() {
+  return window.matchMedia(
+    `(min-width: ${mobileWidth}px) and (max-width: ${tabletWidth}px)`
+  ).matches;
 }
 
 export function ieDetector() {
