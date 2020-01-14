@@ -18,6 +18,8 @@ class AppProvider extends Component {
 
     //
 
+    cart: [],
+    cartActive: false,
     dark: false,
     menuActive: false
   };
@@ -97,9 +99,21 @@ class AppProvider extends Component {
   //
   // API
 
+  setCart = cart => {
+    this.setState({
+      cart
+    });
+  };
+
   setDark = dark => {
     this.setState({
       dark
+    });
+  };
+
+  setCartActive = cartActive => {
+    this.setState({
+      cartActive
     });
   };
 
@@ -126,9 +140,12 @@ class AppProvider extends Component {
           windowWidth: this.state.windowWidth,
           windowHeight: this.state.windowHeight,
           //
+          cart: this.state.cart,
+          cartActive: this.state.cartActive,
           dark: this.state.dark,
           menuActive: this.state.menuActive,
           //
+          setCartActive: this.setCartActive,
           setDark: this.setDark,
           setMenuActive: this.setMenuActive
         }}

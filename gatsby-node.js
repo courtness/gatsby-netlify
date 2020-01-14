@@ -70,6 +70,90 @@ exports.createPages = ({ actions, graphql }) => {
   });
 };
 
+//
+// Wordpress
+/*
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  const result = await graphql(`
+    {
+      allWordpressPost {
+        edges {
+          node {
+            id
+            slug
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    // eslint-disable-next-line no-console
+    console.error(result.errors);
+  }
+
+  const { allWordpressPost } = result.data;
+
+  const postTemplate = path.resolve(`./src/templates/wordpress-post.js`);
+
+  allWordpressPost.edges.forEach(edge => {
+    createPage({
+      path: `/${edge.node.slug}/`,
+      component: slash(postTemplate),
+      context: {
+        id: edge.node.id
+      }
+    });
+  });
+};
+*/
+
+
+//
+// Shopify
+/*
+
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  const result = await graphql(`
+    {
+      allShopifyProduct {
+        edges {
+          node {
+            id
+            handle
+          }
+        }
+      }
+    }
+  `);
+
+  if (result.errors) {
+    // eslint-disable-next-line no-console
+    console.error(result.errors);
+  }
+
+  const { allShopifyProduct } = result.data;
+
+  const shopifyProductTemplate = path.resolve(
+    `./src/templates/shopify-product.js`
+  );
+
+  allShopifyProduct.edges.forEach(edge => {
+    createPage({
+      path: `products/${edge.node.handle}/`,
+      component: slash(shopifyProductTemplate),
+      context: {
+        id: edge.node.id
+      }
+    });
+  });
+};
+*/
+
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 

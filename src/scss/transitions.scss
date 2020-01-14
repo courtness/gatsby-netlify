@@ -29,6 +29,24 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
   opacity: 0;
 }
 
+@keyframes appear-down {
+  from {
+    transform: translate3d(0, -14px, 0);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animation-appear-down {
+  animation: $slow-transition appear-down forwards;
+
+  transform: translate3d(0, -14px, 0);
+  opacity: 0;
+}
+
 @keyframes appear-left {
   from {
     transform: translate3d(14px, 0, 0);
@@ -63,4 +81,26 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
   transform: translate3d(0, -14px, 0);
   opacity: 0;
+}
+
+//
+
+.animation-delay-1 {
+  animation-delay: 100ms;
+}
+
+.animation-delay-2 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-3 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-4 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-5 {
+  animation-delay: 500ms;
 }

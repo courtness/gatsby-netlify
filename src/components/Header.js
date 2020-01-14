@@ -5,6 +5,12 @@ import { Link } from "gatsby";
 import { AppContext } from "~context/AppContext";
 
 class HeaderComponent extends Component {
+  toggleCart = () => {
+    const { appContext } = this.props;
+
+    appContext.setCartActive(!appContext.cartActive);
+  };
+  
   toggleMenu = () => {
     const { appContext } = this.props;
 
@@ -23,10 +29,10 @@ class HeaderComponent extends Component {
         }`}
       >
         <nav className="relative grid">
-          <div className="grid-end-12 flex items-center justify-start">
+          <div className="grid-end-12 flex items-center justify-between">
             <button
               type="button"
-              className={`header__menu mr-8 gpu ${
+              className={`header__menu relative ${
                 appContext.menuActive ? `menu-active` : ``
               } relative`}
               onClick={this.toggleMenu}
@@ -39,6 +45,16 @@ class HeaderComponent extends Component {
             <Link to="/" className="block text-black">
               <h2 className="f4">Header</h2>
             </Link>
+
+            <button
+              type="button"
+              className={`header__cart relative ${
+                appContext.cartActive ? `cart-active` : ``
+              } relative`}
+              onClick={this.toggleCart}
+            >
+              Cart
+            </button>
           </div>
         </nav>
       </header>
