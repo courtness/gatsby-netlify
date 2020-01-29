@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { PropTypes } from "prop-types";
 import { graphql } from "gatsby";
 import { AppContext } from "~context/AppContext";
@@ -20,7 +20,7 @@ class ContactPageComponent extends Component {
       <>
         <SEO
           customTitle={frontmatter.title}
-          customDescription={frontmatter.seoDescription}
+          customDescriptions={frontmatter.seoDescription}
           customKeywords={frontmatter.seoKeywords}
           path={location.pathname}
         />
@@ -47,18 +47,15 @@ ContactPageComponent.propTypes = {
 //
 
 const ContactPage = ({ data, location }) => {
+  const appContext = useContext(AppContext);
   const { frontmatter } = data.markdownRemark;
 
   return (
-    <AppContext.Consumer>
-      {appContext => (
-        <ContactPageComponent
-          appContext={appContext}
-          frontmatter={frontmatter}
-          location={location}
-        />
-      )}
-    </AppContext.Consumer>
+    <ContactPageComponent
+      appContext={appContext}
+      frontmatter={frontmatter}
+      location={location}
+    />
   );
 };
 

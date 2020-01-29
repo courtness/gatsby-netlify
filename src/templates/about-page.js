@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { PropTypes } from "prop-types";
 import { graphql } from "gatsby";
 import { AppContext } from "~context/AppContext";
@@ -25,7 +25,7 @@ class AboutPageComponent extends Component {
           path={location.pathname}
         />
 
-        <Layout className="index-page w-full relative">
+        <Layout className="about-page w-full relative">
           <h1 className="f1">{frontmatter.title}</h1>
         </Layout>
       </>
@@ -47,18 +47,15 @@ AboutPageComponent.propTypes = {
 //
 
 const AboutPage = ({ data, location }) => {
+  const appContext = useContext(AppContext);
   const { frontmatter } = data.markdownRemark;
 
   return (
-    <AppContext.Consumer>
-      {appContext => (
-        <AboutPageComponent
-          appContext={appContext}
-          frontmatter={frontmatter}
-          location={location}
-        />
-      )}
-    </AppContext.Consumer>
+    <AboutPageComponent
+      appContext={appContext}
+      frontmatter={frontmatter}
+      location={location}
+    />
   );
 };
 

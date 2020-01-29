@@ -136,7 +136,7 @@ function shopifySources() {
   return sources;
 }
 
-// 
+//
 // Export
 
 module.exports = {
@@ -171,7 +171,6 @@ module.exports = {
     //     display: `block`
     //   }
     // },
-    `gatsby-plugin-root-import`,
     {
       resolve: `gatsby-plugin-sass`,
       options: {
@@ -188,6 +187,8 @@ module.exports = {
       }
     },
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-root-import`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -225,13 +226,13 @@ module.exports = {
               withWebp: true
             }
           },
+          `gatsby-remark-lazy-load`,
           {
             resolve: `gatsby-remark-copy-linked-files`,
             options: {
               destinationDir: `${__dirname}/static`
             }
-          },
-          `gatsby-remark-lazy-load`
+          }
         ]
       }
     },

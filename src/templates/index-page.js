@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { PropTypes } from "prop-types";
 import { graphql } from "gatsby";
 import { AppContext } from "~context/AppContext";
@@ -47,18 +47,15 @@ IndexPageComponent.propTypes = {
 //
 
 const IndexPage = ({ data, location }) => {
+  const appContext = useContext(AppContext);
   const { frontmatter } = data.markdownRemark;
 
   return (
-    <AppContext.Consumer>
-      {appContext => (
-        <IndexPageComponent
-          appContext={appContext}
-          frontmatter={frontmatter}
-          location={location}
-        />
-      )}
-    </AppContext.Consumer>
+    <IndexPageComponent
+      appContext={appContext}
+      frontmatter={frontmatter}
+      location={location}
+    />
   );
 };
 

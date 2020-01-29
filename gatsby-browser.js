@@ -7,9 +7,9 @@
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
 
-import React from "react";
 import "lazysizes";
 
+import React from "react";
 import AppProvider from "~context/AppContext";
 
 import "~scss/index.scss";
