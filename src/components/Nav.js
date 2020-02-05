@@ -35,10 +35,13 @@ class NavComponent extends Component {
   //
 
   checkout = () => {
-    if (!process.env.GATSBY_SHOPIFY_STORE || process.env.GATSBY_SHOPIFY_STORE === ``) {
+    if (
+      !process.env.GATSBY_SHOPIFY_STORE ||
+      process.env.GATSBY_SHOPIFY_STORE === ``
+    ) {
       fancyError(`Shopify environment variables have not been defined.`);
     }
-    
+
     const { appContext } = this.props;
 
     let cartString = ``;
@@ -73,9 +76,7 @@ class NavComponent extends Component {
 
     return (
       <div
-        className={`nav ${
-          appContext.cartActive ? `cart-active` : ``
-        } ${
+        className={`nav ${appContext.cartActive ? `cart-active` : ``} ${
           appContext.menuActive ? `menu-active` : ``
         } w-screen h-screen fixed flex items-center justify-between z-50`}
       >
@@ -88,36 +89,35 @@ class NavComponent extends Component {
         <div className="nav__cart h-full absolute top-0 right-0 pt-16 px-4 z-20 bg-black text-white">
           <h3 className="f3 mb-4">Cart</h3>
 
-          {(appContext.cart &&
-            appContext.cart.length && (
-              <>
-                <ul>
-                  {appContext.cart.map(cartItem => (
-                    <li
-                      key={cartItem.handle}
-                      className="relative py-4 flex items-stretch"
-                    >
-                      <h3 className="f4 mb-4">{cartItem.title}</h3>
-                      <p className="b1">${cartItem.variants[0].price}</p>
+          {(appContext.cart && appContext.cart.length && (
+            <>
+              <ul>
+                {appContext.cart.map(cartItem => (
+                  <li
+                    key={cartItem.handle}
+                    className="relative py-4 flex items-stretch"
+                  >
+                    <h3 className="f4 mb-4">{cartItem.title}</h3>
+                    <p className="b1">${cartItem.variants[0].price}</p>
 
-                      <div>x{cartItem.quantity}</div>
-                    </li>
-                  ))}
-                </ul>
+                    <div>x{cartItem.quantity}</div>
+                  </li>
+                ))}
+              </ul>
 
-                <div className="relative mt-4">
-                  <h4 className="f4">Total: {cartTotal.toFixed(2)}</h4>
-                </div>
+              <div className="relative mt-4">
+                <h4 className="f4">Total: {cartTotal.toFixed(2)}</h4>
+              </div>
 
-                <button
-                  type="button"
-                  onClick={this.checkout}
-                  className="button w-full mt-6 mb-12"
-                >
-                  Checkout
-                </button>
-              </>
-            )) || <h4 className="b1">Your cart is empty.</h4>}
+              <button
+                type="button"
+                onClick={this.checkout}
+                className="button w-full mt-6 mb-12"
+              >
+                Checkout
+              </button>
+            </>
+          )) || <h4 className="b1">Your cart is empty.</h4>}
         </div>
 
         <ul className="nav__menu h-full absolute top-0 left-0 py-24 px-4 z-20 bg-black text-white">
@@ -127,7 +127,7 @@ class NavComponent extends Component {
               to="/"
               onClick={() => appContext.setMenuActive(false)}
             >
-              Home
+              <span>Home</span>
             </Link>
           </li>
 
@@ -137,7 +137,7 @@ class NavComponent extends Component {
               to="/about"
               onClick={() => appContext.setMenuActive(false)}
             >
-              About
+              <span>About</span>
             </Link>
           </li>
 
@@ -147,7 +147,7 @@ class NavComponent extends Component {
               to="/contact"
               onClick={() => appContext.setMenuActive(false)}
             >
-              Contact
+              <span>Contact</span>
             </Link>
           </li>
         </ul>

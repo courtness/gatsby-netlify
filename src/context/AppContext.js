@@ -1,4 +1,5 @@
 import React, { Component, createContext } from "react";
+import _ from "underscore";
 import PropTypes from "prop-types";
 import { getWindowDimensions } from "~utils/dom";
 
@@ -28,52 +29,73 @@ class AppProvider extends Component {
 
   tabletWidth = 1024;
 
+  throttledHandleMousemove;
+
+  throttledHandleResize;
+
+  throttledHandleScroll;
+
   //
-  // React lifecycle
 
   componentDidMount() {
-    setTimeout(() => {
-      this.updateWindowDimensions();
-    });
+    this.throttledHandleMousemove = _.throttle(this.handleMousemove);
+    this.throttledHandleResize = _.throttle(this.handleResize);
+    this.throttledHandleScroll = _.throttle(this.handleScroll);
 
-    document.removeEventListener(`mousemove`, this.updateCursorPosition, false);
-    document.removeEventListener(`resize`, this.updateWindowDimensions, false);
-    document.removeEventListener(`scroll`, this.updateScrollTop, false);
+    if (document) {
+      document.addEventListener(
+        `mousemove`,
+        this.throttledHandleMousemove,
+        false
+      );
+      document.addEventListener(`scroll`, this.throttledHandleScroll, false);
+    }
 
-    document.addEventListener(`mousemove`, this.updateCursorPosition, false);
-    document.addEventListener(`scroll`, this.updateScrollTop, false);
+    if (window) {
+      window.addEventListener(`resize`, this.throttledHandleResize, false);
 
-    window.addEventListener(`resize`, this.updateWindowDimensions, false);
+      setTimeout(() => {
+        this.handleResize();
+      });
+    }
   }
 
   componentWillUnmount() {
-    document.removeEventListener(`mousemove`, this.updateCursorPosition, false);
-    document.removeEventListener(`resize`, this.updateWindowDimensions, false);
-    document.removeEventListener(`scroll`, this.updateScrollTop, false);
+    if (document) {
+      document.removeEventListener(
+        `mousemove`,
+        this.throttledHandleMousemove,
+        false
+      );
+      document.removeEventListener(`scroll`, this.throttledHandleScroll, false);
+    }
+
+    if (window) {
+      window.removeEventListener(`resize`, this.throttledHandleScroll, false);
+    }
   }
 
   //
-  // listeners
 
-  updateCursorPosition = event => {
+  handleMousemove = e => {
     this.setState(prevState => ({
-      cursorCenterDeltaX: -(0.5 - event.pageX / prevState.windowWidth),
-      cursorPositionX: event.pageX,
+      cursorCenterDeltaX: -(0.5 - e.pageX / prevState.windowWidth),
+      cursorPositionX: e.pageX,
       cursorCenterDeltaY: -(
         0.5 -
-        (event.pageY - window.pageYOffset) / prevState.windowHeight
+        (e.pageY - window.pageYOffset) / prevState.windowHeight
       ),
-      cursorPositionY: event.pageY - window.pageYOffset
+      cursorPositionY: e.pageY - window.pageYOffset
     }));
   };
 
-  updateScrollTop = e => {
+  handleScroll = e => {
     this.setState({
       scrollTop: e.target.scrollingElement.scrollTop
     });
   };
 
-  updateWindowDimensions = () => {
+  handleResize = () => {
     let device = `desktop`;
 
     if (
@@ -97,7 +119,6 @@ class AppProvider extends Component {
   };
 
   //
-  // API
 
   setCart = cart => {
     this.setState({

@@ -3,6 +3,7 @@ require(`dotenv`).config({
 });
 
 const autoprefixer = require(`autoprefixer`);
+const proxy = require(`http-proxy-middleware`);
 const tailwindCss = require(`tailwindcss`)(`./tailwind.config.js`);
 
 function trackingPlugins() {
@@ -140,6 +141,17 @@ function shopifySources() {
 // Export
 
 module.exports = {
+  developMiddleware: app => {
+    app.use(
+      `/.netlify/functions/`,
+      proxy({
+        target: `http://localhost:9000`,
+        pathRewrite: {
+          "/.netlify/functions/": ``
+        }
+      })
+    );
+  },
   siteMetadata: {
     title: `Site Title`,
     titleTemplate: `%s - Site Title`,

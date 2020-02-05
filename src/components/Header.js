@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { Link } from "gatsby";
 import { AppContext } from "~context/AppContext";
 
@@ -10,7 +10,7 @@ class HeaderComponent extends Component {
 
     appContext.setCartActive(!appContext.cartActive);
   };
-  
+
   toggleMenu = () => {
     const { appContext } = this.props;
 
@@ -25,8 +25,8 @@ class HeaderComponent extends Component {
     return (
       <header
         className={`header w-full fixed top-0 right-0 left-0 z-30 py-2 ${
-          appContext.menuActive ? ` menu-active` : ``
-        }`}
+          appContext.cartActive ? ` cart-active` : ``
+        } ${appContext.menuActive ? ` menu-active` : ``}`}
       >
         <nav className="relative grid">
           <div className="grid-end-12 flex items-center justify-between">
@@ -62,10 +62,10 @@ class HeaderComponent extends Component {
   }
 }
 
-const Header = props => (
-  <AppContext.Consumer>
-    {appContext => <HeaderComponent appContext={appContext} {...props} />}
-  </AppContext.Consumer>
-);
+const Header = () => {
+  const appContext = useContext(AppContext);
+
+  return <HeaderComponent appContext={appContext} />;
+};
 
 export default Header;
