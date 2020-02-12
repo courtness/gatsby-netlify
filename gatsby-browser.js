@@ -11,13 +11,19 @@ import "lazysizes";
 
 import React from "react";
 import AppProvider from "~context/AppContext";
+import CursorProvider from "~context/CursorContext";
+import DocumentProvider from "~context/DocumentContext";
 
 import "~scss/index.scss";
 
 export const wrapRootElement = ({ element }) => {
   return (
     <>
-      <AppProvider>{element}</AppProvider>
+      <DocumentProvider>
+        <CursorProvider>
+          <AppProvider>{element}</AppProvider>
+        </CursorProvider>
+      </DocumentProvider>
     </>
   );
 };
