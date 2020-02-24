@@ -63,7 +63,6 @@ function trackingPlugins() {
 }
 
 //
-// Wordpress
 
 function wordpressSources() {
   const sources = [];
@@ -91,9 +90,6 @@ function wordpressSources() {
 
   return sources;
 }
-
-//
-// Shopify
 
 function shopifySources() {
   const sources = [];
@@ -213,6 +209,12 @@ module.exports = {
       options: {
         path: `${__dirname}/static/uploads`,
         name: `uploads`
+      }
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/data/`
       }
     },
     `gatsby-transformer-yaml`,

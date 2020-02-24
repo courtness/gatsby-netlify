@@ -19,7 +19,13 @@ const query = graphql`
 `;
 
 const SEO = props => {
-  const { customDescription, customKeywords, path, customTitle } = props;
+  const {
+    customDescription,
+    customKeywords,
+    customTitle,
+    noIndex,
+    path
+  } = props;
 
   return (
     <StaticQuery
@@ -50,6 +56,9 @@ const SEO = props => {
             <html lang="en" />
 
             <meta name="description" content={seo.description} />
+
+            {noIndex ? <meta name="robots" content="noindex" /> : null}
+
             <meta name="image" content={seo.image} />
 
             {seo.keywords && <meta name="keywords" content={seo.keywords} />}
@@ -88,6 +97,7 @@ SEO.defaultProps = {
   customDescription: null,
   customKeywords: null,
   customTitle: null,
+  noIndex: false,
   path: null
 };
 
@@ -95,6 +105,7 @@ SEO.propTypes = {
   customDescription: PropTypes.string,
   customKeywords: PropTypes.string,
   customTitle: PropTypes.string,
+  noIndex: PropTypes.bool,
   path: PropTypes.string
 };
 

@@ -2,6 +2,7 @@ import React, { Component, useContext } from "react";
 import { PropTypes } from "prop-types";
 import { graphql } from "gatsby";
 import { AppContext } from "~context/AppContext";
+import Footer from "~components/Footer";
 import Layout from "~components/Layout";
 import SEO from "~components/SEO";
 import { fancyLog } from "~utils/helpers";
@@ -20,14 +21,18 @@ class ContactPageComponent extends Component {
       <>
         <SEO
           customTitle={frontmatter.title}
-          customDescriptions={frontmatter.seoDescription}
+          customDescription={frontmatter.seoDescription}
           customKeywords={frontmatter.seoKeywords}
           path={location.pathname}
         />
 
-        <Layout className="contact-page w-full relative">
-          <h1 className="f1">{frontmatter.title}</h1>
+        <Layout className="contact-page h-screen w-full relative pt-16">
+          <section className="grid">
+            <h1 className="grid-end-12 f3">{frontmatter.title}</h1>
+          </section>
         </Layout>
+
+        <Footer />
       </>
     );
   }

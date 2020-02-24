@@ -5,6 +5,7 @@ export const AppContext = createContext({});
 
 class AppProvider extends Component {
   state = {
+    cartActive: false,
     menuActive: false
   };
 
@@ -16,6 +17,12 @@ class AppProvider extends Component {
   }
 
   //
+
+  setCartActive = cartActive => {
+    this.setState({
+      cartActive
+    });
+  };
 
   setMenuActive = menuActive => {
     this.setState({
@@ -29,8 +36,10 @@ class AppProvider extends Component {
     return (
       <AppContext.Provider
         value={{
+          cartActive: this.state.cartActive,
           menuActive: this.state.menuActive,
           //
+          setCartActive: this.setCartActive,
           setMenuActive: this.setMenuActive
         }}
       >

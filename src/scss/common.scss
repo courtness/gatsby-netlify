@@ -8,8 +8,35 @@
   transform: translate3d(-50%, -50%, 0);
 }
 
+.transform-center-invert-x {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) scaleX(-1);
+}
+
 .gpu {
   backface-visibility: hidden;
   perspective: 1000;
   transform-style: preserve-3d;
+}
+
+.clipped {
+  clip: rect(auto, auto, auto, auto);
+}
+
+.border-b,
+.border-t {
+  &-black {
+    border-bottom: 1px solid theme("colors.black");
+  }
+
+  &-white {
+    border-bottom: 1px solid theme("colors.white");
+  }
+}
+
+.hover-underline {
+  @include hoverable {
+    text-decoration: underline;
+  }
 }

@@ -1,60 +1,9 @@
 .header {
-  transition: $default-transition transform;
-
-  background-color: theme("colors.white");
-  border-bottom: 1px solid theme("colors.black");
-
-  //
-
-  &.dark {
-    background-color: theme("colors.black");
-    border-bottom: 1px solid theme("colors.white");
-
-    .header__cart svg {
-      path {
-        fill: theme("colors.white");
-      }
-    }
-
-    .header__menu__line {
-      background-color: theme("colors.white");
-    }
-  }
-
   &.cart-active {
     transform: translate3d(-60px, 0, 0);
   }
 
   &.menu-active {
     transform: translate3d(60px, 0, 0);
-  }
-
-  //
-
-  &__cart {
-    width: 24px;
-
-    svg {
-      width: 24px;
-    }
-  }
-
-  &__logo {
-    width: 240px;
-  }
-
-  &__menu {
-    width: 25px;
-    padding-top: 4px;
-    align-self: stretch;
-
-    &__line {
-      transition: $default-transition opacity, $default-transition transform;
-
-      width: 100%;
-      height: 2px;
-      margin-bottom: 4px;
-      background-color: theme("colors.black");
-    }
   }
 }

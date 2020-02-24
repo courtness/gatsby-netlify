@@ -1,8 +1,8 @@
 html {
-  font-size: 18px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  font-size: 18px;
 }
 
 body {
@@ -10,32 +10,16 @@ body {
   -ms-overflow-style: none;
   position: relative;
   overflow-x: hidden;
-  background-color: color(white);
 
   &::-webkit-scrollbar {
     display: none;
   }
 }
 
-strong,
-.strong {
-  font-weight: bold;
-}
+//
 
-em,
-.em {
-  font-style: italic;
-}
-
-button {
-  outline: none;
-  padding: 0;
-}
-
-button:focus,
-input:focus,
-textarea:focus {
-  outline: none;
+* {
+  box-sizing: border-box;
 }
 
 a,
@@ -45,31 +29,20 @@ a:visited {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-textarea {
-  resize: none;
-}
-
-input,
-select,
-textarea {
-  -webkit-appearance: none;
-  border-radius: 0px;
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
   outline: none;
 }
 
-button {
+button:focus {
+  outline: none;
+}
+
+input {
+  appearance: none;
   background: transparent;
   border: none;
-  outline: none;
-}
-
-// gatsby-image hack
-picture {
-  img {
-    opacity: 1 !important;
-  }
 }

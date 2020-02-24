@@ -11,6 +11,24 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
 //
 
+.transition-background {
+  transition: $default-transition background;
+}
+
+.transition-opacity {
+  transition: $default-transition opacity;
+}
+
+.transition-transform {
+  transition: $default-transition transform;
+}
+
+.transition-opacity-transform {
+  transition: $default-transition opacity, $default-transition transform;
+}
+
+//
+
 @keyframes appear {
   from {
     transform: translate3d(0, 14px, 0);

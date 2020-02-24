@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { Link } from "gatsby";
 import { AppContext } from "~context/AppContext";
+import { fancyError } from "~utils/helpers";
 
 class NavComponent extends Component {
   componentDidMount() {
@@ -65,8 +66,10 @@ class NavComponent extends Component {
   };
 
   close = () => {
-    this.props.appContext.setCartActive(false);
-    this.props.appContext.setMenuActive(false);
+    const { appContext } = this.props;
+
+    appContext.setCartActive(false);
+    appContext.setMenuActive(false);
   };
 
   //
@@ -156,10 +159,10 @@ class NavComponent extends Component {
   }
 }
 
-const Nav = () => (
-  <AppContext.Consumer>
-    {appContext => <NavComponent appContext={appContext} />}
-  </AppContext.Consumer>
-);
+const Nav = () => {
+  const appContext = useContext(AppContext);
+
+  return <NavComponent appContext={appContext} />;
+};
 
 export default Nav;
