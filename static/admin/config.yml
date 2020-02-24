@@ -28,6 +28,37 @@ collections:
             widget: string
             hint: This is used both by the title meta tag and the <h1> tag in the HTML.
 
+          - label: Components
+            name: components
+            widget: list
+            types:
+              - label: Simple Image
+                name: simpleImage
+                fields:
+                  - label: Simple Image Source
+                    name: simpleImageSource
+                    widget: image
+
+              - label: Carousel
+                name: carousel
+                fields:
+                  - label: Carousel Images
+                    name: carouselImages
+                    widget: list
+                    field:
+                      {
+                        label: Carousel Image,
+                        name: carouselImage,
+                        widget: image,
+                      }
+
+              - label: Video
+                name: video
+                fields:
+                  - label: Video URL
+                    name: videoURL
+                    widget: string
+
           - label: SEO Description
             name: description
             required: false
