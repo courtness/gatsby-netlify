@@ -32,11 +32,11 @@ collections:
             name: components
             widget: list
             types:
-              - label: Simple Image
-                name: simpleImage
+              - label: Image
+                name: image
                 fields:
-                  - label: Simple Image Source
-                    name: simpleImageSource
+                  - label: Image Source
+                    name: imageSource
                     widget: image
 
               - label: Carousel

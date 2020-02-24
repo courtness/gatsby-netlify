@@ -95,7 +95,7 @@ export const query = graphql`
               }
             }
           }
-          simpleImageSource {
+          imageSource {
             childImageSharp {
               fluid(maxWidth: 1920, quality: 75) {
                 ...GatsbyImageSharpFluid_withWebp_noBase64

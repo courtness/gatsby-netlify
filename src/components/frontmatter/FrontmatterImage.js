@@ -3,7 +3,7 @@
 import React from "react";
 import Img from "gatsby-image";
 
-const FrontmatterSimpleImage = ({ key, source }) => (
+const FrontmatterImage = ({ key, source }) => (
   <section key={key} className="grid">
     <div className="grid-end-12 my-8">
       <Img
@@ -15,4 +15,4 @@ const FrontmatterSimpleImage = ({ key, source }) => (
   </section>
 );
 
-export default FrontmatterSimpleImage;
+export default FrontmatterImage;

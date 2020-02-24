@@ -2,7 +2,7 @@
 
 import React from "react";
 import FrontmatterCarousel from "~components/frontmatter/FrontmatterCarousel";
-import FrontmatterSimpleImage from "~components/frontmatter/FrontmatterSimpleImage";
+import FrontmatterImage from "~components/frontmatter/FrontmatterImage";
 import FrontmatterVideo from "~components/frontmatter/FrontmatterVideo";
 
 const FrontmatterBuilder = ({ components }) => (
@@ -25,12 +25,12 @@ const FrontmatterBuilder = ({ components }) => (
 
             break;
 
-          case `simpleImage`:
+          case `image`:
             componentJSX = (
-              <FrontmatterSimpleImage
+              <FrontmatterImage
                 key={key}
-                source={component.simpleImageSource}
-              ></FrontmatterSimpleImage>
+                source={component.imageSource}
+              ></FrontmatterImage>
             );
 
             break;
