@@ -1,3 +1,5 @@
+import React from "react";
+
 export function getRandomIntByRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -38,4 +40,26 @@ export function shuffleArray(array) {
   }
 
   return array;
+}
+
+export function splitStringToParagraphs(string, marginRems = 2) {
+  const splitText = string.split(/\r?\n/);
+  const jsx = [];
+
+  splitText.forEach((row, index) => {
+    const rowIndex = index;
+
+    if (row !== ``) {
+      jsx.push(
+        <p
+          key={`split-text-${rowIndex}`}
+          className={`relative block mb-${marginRems}`}
+        >
+          {row}
+        </p>
+      );
+    }
+  });
+
+  return jsx;
 }

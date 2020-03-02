@@ -10,7 +10,9 @@ const FrontmatterBuilder = ({ components }) => (
     {components &&
       components.length > 0 &&
       components.map((component, index) => {
-        const key = `section-${index}`; // TODO: some other identifier
+        // TODO classNames, propTypes, better identifier
+
+        const key = `section-${index}`;
 
         let componentJSX;
 

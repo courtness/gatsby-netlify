@@ -29,6 +29,38 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
 //
 
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animation-fade-in {
+  animation: $default-transition fade-in forwards;
+
+  opacity: 0;
+}
+
+//
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.animation-fade-out {
+  animation: $default-transition fade-out forwards;
+}
+
+//
+
 @keyframes appear {
   from {
     transform: translate3d(0, 14px, 0);
@@ -41,7 +73,7 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 }
 
 .animation-appear {
-  animation: $slow-transition appear forwards;
+  animation: $default-transition appear forwards;
 
   transform: translate3d(0, 14px, 0);
   opacity: 0;
@@ -59,7 +91,7 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 }
 
 .animation-appear-down {
-  animation: $slow-transition appear-down forwards;
+  animation: $default-transition appear-down forwards;
 
   transform: translate3d(0, -14px, 0);
   opacity: 0;
@@ -77,7 +109,7 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 }
 
 .animation-appear-left {
-  animation: $slow-transition appear-left forwards;
+  animation: $default-transition appear-left forwards;
 
   transform: translate3d(14px, 0, 0);
   opacity: 0;
@@ -95,9 +127,37 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 }
 
 .animation-appear-right {
-  animation: $slow-transition appear-right forwards;
+  animation: $default-transition appear-right forwards;
 
   transform: translate3d(-14px, 0, 0);
+  opacity: 0;
+}
+
+//
+
+@keyframes pop {
+  0% {
+    transform: translate3d(-20vw, 0, 0);
+    opacity: 0;
+  }
+  33% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  66% {
+    transform: translate3d(-12px, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(-6px, 0, 0);
+    opacity: 1;
+  }
+}
+
+.animation-pop {
+  animation: $default-transition pop forwards;
+
+  transform: translate3d(-32px, 0, 0);
   opacity: 0;
 }
 

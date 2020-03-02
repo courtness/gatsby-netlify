@@ -37,7 +37,8 @@ button {
   outline: none;
 }
 
-button:focus {
+button:focus,
+textarea:focus {
   outline: none;
 }
 
@@ -45,4 +46,8 @@ input {
   appearance: none;
   background: transparent;
   border: none;
+}
+
+textarea {
+  resize: none;
 }

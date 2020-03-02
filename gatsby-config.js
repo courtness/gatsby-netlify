@@ -191,7 +191,7 @@ module.exports = {
         printRejected: true,
         // develop: true,
         tailwind: true,
-        whitelistPatterns: [/gatsby-/, /glide/]
+        whitelistPatterns: [/gatsby-/, /glide/, /mb-2/]
       }
     },
     `gatsby-plugin-react-helmet`,
