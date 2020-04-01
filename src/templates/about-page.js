@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import React, { Component, useContext } from "react";
 import { PropTypes } from "prop-types";
 import { graphql } from "gatsby";
@@ -26,13 +28,13 @@ class AboutPageComponent extends Component {
           path={location.pathname}
         />
 
-        <Layout className="about-page h-screen w-full relative pt-16">
+        <Layout className="contact-page w-full relative flex flex-col justify-between pt-12">
           <section className="grid">
-            <h1 className="grid-end-12 f3">{frontmatter.title}</h1>
+            <h1 className="grid-end-12 my-8 f3">{frontmatter.title}</h1>
           </section>
-        </Layout>
 
-        <Footer />
+          <Footer />
+        </Layout>
       </>
     );
   }
