@@ -1,15 +1,5 @@
 import React from "react";
 
-export function getRandomIntByRange(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-export function validateEmail(email) {
-  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  return re.test(String(email).toLowerCase());
-}
-
 export function fancyError(error) {
   // eslint-disable-next-line no-console
   console.error(`%c ${error} `, `background: #E83B46; color: #280001`);
@@ -23,6 +13,34 @@ export function fancyLog(log) {
 export function fancyWarning(warning) {
   // eslint-disable-next-line no-console
   console.warn(`%c ${warning} `, `background: #FEDCA2; color: #332A03`);
+}
+
+export function getRandomIntByRange(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+export function preloadImages(images) {
+  if (!preloadImages.list) {
+    preloadImages.list = [];
+  }
+
+  const { list } = preloadImages;
+
+  for (let i = 0; i < images.length; i += 1) {
+    const img = new Image();
+
+    img.onload = () => {
+      const index = list.indexOf(this);
+
+      if (index !== -1) {
+        list.splice(index, 1);
+      }
+    };
+
+    list.push(img);
+
+    img.src = images[i];
+  }
 }
 
 export function shuffleArray(array) {
@@ -62,4 +80,10 @@ export function splitStringToParagraphs(string, marginRems = 2) {
   });
 
   return jsx;
+}
+
+export function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  return re.test(String(email).toLowerCase());
 }

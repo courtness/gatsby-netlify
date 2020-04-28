@@ -44,8 +44,12 @@ const SEO = props => {
         }
       }) => {
         const seo = {
-          description: customDescription || description,
-          keywords: customKeywords || keywords,
+          description:
+            customDescription && customDescription !== ``
+              ? customDescription
+              : description,
+          keywords:
+            customKeywords && customKeywords !== `` ? customKeywords : keywords,
           image: `${url}${image}`,
           title: customTitle || title,
           url: `${url}/${path || ``}`

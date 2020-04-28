@@ -70,9 +70,9 @@ exports.createPages = ({ actions, graphql }) => {
   });
 };
 
-//
-// Wordpress
 /*
+// Wordpress
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
 
@@ -110,46 +110,109 @@ exports.createPages = async ({ graphql, actions }) => {
 };
 */
 
-
-//
-// Shopify
 /*
+// Shopify
 
-exports.createPages = async ({ graphql, actions }) => {
+exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  const result = await graphql(`
+  return graphql(`
     {
-      allShopifyProduct {
+      allMarkdownRemark {
         edges {
           node {
             id
-            handle
+            fields {
+              slug
+            }
+            frontmatter {
+              handle
+              templateKey
+            }
+          }
+        }
+      }
+      allShopifyAdminProduct {
+        edges {
+          node {
+            id
+            products {
+              alternative_id
+              handle
+              variants {
+                alternative_id
+                title
+              }
+            }
           }
         }
       }
     }
-  `);
+  `).then(result => {
+    if (result.errors) {
+      throw result.errors;
+    }
 
-  if (result.errors) {
-    // eslint-disable-next-line no-console
-    console.error(result.errors);
-  }
+    const { allMarkdownRemark, allShopifyAdminProduct } = result.data;
 
-  const { allShopifyProduct } = result.data;
+    // Creates product pages
 
-  const shopifyProductTemplate = path.resolve(
-    `./src/templates/shopify-product.js`
-  );
+    allMarkdownRemark.edges.forEach(markdownEdge => {
+      const { frontmatter } = markdownEdge.node;
 
-  allShopifyProduct.edges.forEach(edge => {
-    createPage({
-      path: `products/${edge.node.handle}/`,
-      component: slash(shopifyProductTemplate),
-      context: {
-        id: edge.node.id
+      let inShopify = false;
+      let multiVariant = false;
+
+      allShopifyAdminProduct.edges.forEach(edge => {
+        if (edge.node.id !== `dummy`) {
+          edge.node.products.forEach(shopifyProduct => {
+            if (inShopify && multiVariant) {
+              return;
+            }
+
+            if (frontmatter.handle === shopifyProduct.handle) {
+              inShopify = true;
+
+              if (shopifyProduct.variants.length >= 2) {
+                multiVariant = true;
+              }
+            }
+          });
+        }
+      });
+
+      createPage({
+        path: markdownEdge.node.fields.slug,
+        component: path.resolve(`src/templates/shopify-product-page.js`),
+        context: {
+          handle: frontmatter.handle,
+          id: markdownEdge.node.id,
+          inShopify,
+          multiVariant
+        }
+      });
+    });
+
+    // Creates all the other pages
+
+    allMarkdownRemark.edges.forEach(edge => {
+      const { id } = edge.node;
+      const { slug } = edge.node.fields;
+
+      if (!slug.startsWith(`/products/`) || slug === `/products/`) {
+        createPage({
+          path: slug,
+          component: path.resolve(
+            `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
+          ),
+          context: {
+            id
+          }
+        });
       }
     });
+
+    return true;
   });
 };
 */

@@ -30,6 +30,7 @@ class HeaderComponent extends Component {
       >
         <nav className="grid">
           <div className="grid-end-12 flex items-center justify-between">
+            `
             <button
               type="button"
               className="header__menu w-6 h-4 relative flex flex-col items-center justify-between"
@@ -39,11 +40,10 @@ class HeaderComponent extends Component {
               <div className="header__menu__line transition-opacity-transform w-6 border-b-2 border-black"></div>
               <div className="header__menu__line transition-opacity-transform w-6 border-b-2 border-black"></div>
             </button>
-
+            `
             <Link to="/" className="block text-black">
               <h2 className="f4">Header</h2>
             </Link>
-
             <button type="button" onClick={this.toggleCart}>
               Cart
             </button>
