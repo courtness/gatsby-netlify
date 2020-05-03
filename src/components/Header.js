@@ -39,10 +39,11 @@ class HeaderComponent extends Component {
               <div className="header__menu__line transition-opacity-transform w-6 border-b-2 border-black"></div>
               <div className="header__menu__line transition-opacity-transform w-6 border-b-2 border-black"></div>
             </button>
-            `
+
             <Link to="/" className="block text-black">
               <h2 className="f4">Header</h2>
             </Link>
+
             <button type="button" onClick={this.toggleCart}>
               Cart
             </button>
