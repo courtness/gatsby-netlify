@@ -30,7 +30,6 @@ class HeaderComponent extends Component {
       >
         <nav className="grid">
           <div className="grid-end-12 flex items-center justify-between">
-            `
             <button
               type="button"
               className="header__menu w-6 h-4 relative flex flex-col items-center justify-between"

@@ -3,7 +3,7 @@ $ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);
 $default-transition-speed: 300ms;
 $default-transition: $default-transition-speed $ease-out-cubic;
 
-$slow-transition-speed: 500ms;
+$slow-transition-speed: 750ms;
 $slow-transition: $slow-transition-speed $ease-out-cubic;
 
 $fast-transition-speed: 150ms;
@@ -42,6 +42,12 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
   animation: $default-transition fade-in forwards;
 
   opacity: 0;
+
+  &-slow {
+    animation: $slow-transition fade-in forwards;
+
+    opacity: 0;
+  }
 }
 
 //
@@ -77,7 +83,16 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
   transform: translate3d(0, 14px, 0);
   opacity: 0;
+
+  &-slow {
+    animation: $slow-transition appear forwards;
+
+    transform: translate3d(0, 14px, 0);
+    opacity: 0;
+  }
 }
+
+//
 
 @keyframes appear-down {
   from {
@@ -95,7 +110,16 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
   transform: translate3d(0, -14px, 0);
   opacity: 0;
+
+  &-slow {
+    animation: $slow-transition appear-down forwards;
+
+    transform: translate3d(0, -14px, 0);
+    opacity: 0;
+  }
 }
+
+//
 
 @keyframes appear-left {
   from {
@@ -113,7 +137,16 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
   transform: translate3d(14px, 0, 0);
   opacity: 0;
+
+  &-slow {
+    animation: $slow-transition appear-left forwards;
+
+    transform: translate3d(14px, 0, 0);
+    opacity: 0;
+  }
 }
+
+//
 
 @keyframes appear-right {
   from {
@@ -131,6 +164,13 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
   transform: translate3d(-14px, 0, 0);
   opacity: 0;
+
+  &-slow {
+    animation: $slow-transition appear-right forwards;
+
+    transform: translate3d(-14px, 0, 0);
+    opacity: 0;
+  }
 }
 
 //
@@ -181,4 +221,26 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
 .animation-delay-5 {
   animation-delay: 500ms;
+}
+
+//
+
+.transition-delay-1 {
+  transition-delay: 100ms;
+}
+
+.transition-delay-2 {
+  transition-delay: 200ms;
+}
+
+.transition-delay-3 {
+  transition-delay: 300ms;
+}
+
+.transition-delay-4 {
+  transition-delay: 400ms;
+}
+
+.transition-delay-5 {
+  transition-delay: 500ms;
 }

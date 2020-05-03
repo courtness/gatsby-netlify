@@ -24,7 +24,7 @@ const Cross = ({ className, color }) => (
 
 Cross.defaultProps = {
   className: ``,
-  color: ``
+  color: `black`
 };
 
 Cross.propTypes = {
