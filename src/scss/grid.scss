@@ -2,11 +2,11 @@ $grid_columns: 12;
 $grid_columns_xs: 12;
 $grid_gutter: 8px;
 $grid_padding: (
-  xl: 48px,
-  lg: 48px,
-  md: 48px,
+  xl: 24px,
+  lg: 24px,
+  md: 24px,
   sm: 16px,
-  xs: 16px
+  xs: 16px,
 );
 
 .grid {
@@ -120,16 +120,4 @@ $grid_padding: (
 
 @function grid-end($count) {
   @return calc((100vw / #{$grid_columns}) * #{$count});
-}
-
-//
-
-.layout {
-  &.cart-active {
-    transform: translate3d(-60px, 0, 0);
-  }
-
-  &.menu-active {
-    transform: translate3d(60px, 0, 0);
-  }
 }
