@@ -32,9 +32,9 @@ class ContactPageComponent extends Component {
           <section className="grid">
             <h1 className="grid-end-12 my-8 f3">{frontmatter.title}</h1>
           </section>
-
-          <Footer />
         </Layout>
+
+        <Footer />
       </>
     );
   }

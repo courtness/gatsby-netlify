@@ -35,9 +35,9 @@ class IndexPageComponent extends Component {
           </section>
 
           <FrontmatterBuilder components={frontmatter.components} />
-
-          <Footer />
         </Layout>
+
+        <Footer />
       </>
     );
   }

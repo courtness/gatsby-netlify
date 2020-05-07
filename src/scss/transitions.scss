@@ -177,19 +177,19 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 
 @keyframes pop {
   0% {
-    transform: translate3d(-20vw, 0, 0);
+    transform: scale(0.8);
     opacity: 0;
   }
   33% {
-    transform: translate3d(0, 0, 0);
+    transform: scale(1.1);
     opacity: 1;
   }
   66% {
-    transform: translate3d(-12px, 0, 0);
+    transform: scale(0.95);
     opacity: 1;
   }
   100% {
-    transform: translate3d(-6px, 0, 0);
+    transform: scale(1);
     opacity: 1;
   }
 }
@@ -197,7 +197,7 @@ $fast-transition: $fast-transition-speed $ease-out-cubic;
 .animation-pop {
   animation: $default-transition pop forwards;
 
-  transform: translate3d(-32px, 0, 0);
+  transform: scale(0.8);
   opacity: 0;
 }
 

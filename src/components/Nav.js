@@ -6,14 +6,20 @@ import { AppContext } from "~context/AppContext";
 import { fancyError } from "~utils/helpers";
 
 class NavComponent extends Component {
+  throttledHandleScroll;
+
   componentDidMount() {
-    this.addKeyupListeners();
-    this.addScrollListeners();
+    if (window) {
+      this.throttledHandleScroll = _.throttle(this.handleScroll);
+
+      window.addEventListener(`keyup`, this.handleKeyup, false);
+      window.addEventListener(`scroll`, this.throttledHandleScroll, false);
+    }
   }
 
   //
 
-  addKeyupListeners = () => {
+  handleKeyup = () => {
     window.addEventListener(`keyup`, e => {
       switch (e.keyCode) {
         case 27:
@@ -27,7 +33,7 @@ class NavComponent extends Component {
     });
   };
 
-  addScrollListeners = () => {
+  handleScroll = () => {
     document.addEventListener(`scroll`, () => {
       this.close();
     });
@@ -41,6 +47,8 @@ class NavComponent extends Component {
       process.env.GATSBY_SHOPIFY_STORE === ``
     ) {
       fancyError(`Shopify environment variables have not been defined.`);
+
+      return;
     }
 
     const { appContext } = this.props;
@@ -76,6 +84,10 @@ class NavComponent extends Component {
 
   render() {
     const { appContext } = this.props;
+
+    const cartTotal = 0;
+
+    // todo: calc cartTotal
 
     return (
       <div
