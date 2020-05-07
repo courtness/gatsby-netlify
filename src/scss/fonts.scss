@@ -1,33 +1,45 @@
-////////////
-
 /*
-Sans:
-font-family: "FONT_NAME", Helvetica, Arial, sans-serif;
+@font-face {
+  font-family: "Font Family";
+  src: url("../assets/fonts/font-name.eot");
+  src: url("../assets/fonts/font-name.eot?#iefix")
+      format("embedded-opentype"),
+    url("../assets/fonts/font-name.woff") format("woff"),
+    url("../assets/fonts/font-name.ttf") format("truetype"),
+    url("../assets/fonts/font-name.svg#svgFontName") format("svg");
+  font-display: block;
+  font-weight: normal;
+  font-style: normal;
+}
 
-Serif:
-font-family: "FONT_NAME", Times, "Times New Roman", serif;
+.font-family {
+  // Sans:
+  font-family: "Font Family", Helvetica, Arial, sans-serif;
+
+  // Serif:
+  font-family: "Font Family", Times, "Times New Roman", serif;
+}
 */
 
-// @font-face {
-//   font-family: "font-name";
-//   src: url("../assets/fonts/font-name/font-name.eot");
-//   src: url("../assets/fonts/font-name/font-name.eot?#iefix")
-//       format("embedded-opentype"),
-//     url("../assets/fonts/font-name/font-name.woff") format("woff"),
-//     url("../assets/fonts/font-name/font-name.ttf") format("truetype"),
-//     url("../assets/fonts/font-name/font-name.svg#svgFontName") format("svg");
-//   font-display: block;
-//   font-weight: normal;
-//   font-style: normal;
-// }
+//
 
-////////////
+em,
+.em {
+  font-style: italic;
+}
+
+strong,
+.strong {
+  font-weight: bold;
+}
+
+//
 
 @mixin f1 {
   // @include sm {
   // }
 
-  font-family: "Arial Narrow Bold", sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 
   font-size: 92px;
   line-height: 80px;
@@ -43,7 +55,7 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
   // @include sm {
   // }
 
-  font-family: "Arial Narrow Bold", sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 
   font-size: 72px;
   line-height: 60px;
@@ -60,7 +72,7 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
   // @include sm {
   // }
 
-  font-family: "Arial Narrow Bold", sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 
   font-size: 48px;
   line-height: 42px;
@@ -74,7 +86,7 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
 //
 
 @mixin f4 {
-  font-family: Helvetica, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 
   font-size: 28px;
   line-height: 36px;
@@ -90,7 +102,7 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
   // @include sm {
   // }
 
-  font-family: "Arial Narrow Bold", sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
 
   font-size: 30px;
   line-height: 28px;
@@ -107,7 +119,7 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
   // @include sm {
   // }
 
-  font-family: Helvetica, sans-serif;
+  font-family: Times, "Times New Roman", serif;
 
   font-size: 20px;
   line-height: 24px;
@@ -123,7 +135,7 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
   // @include sm {
   // }
 
-  font-family: Helvetica, sans-serif;
+  font-family: Times, "Times New Roman", serif;
 
   font-size: 16px;
   line-height: 20px;
@@ -139,7 +151,7 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
   // @include sm {
   // }
 
-  font-family: Helvetica, sans-serif;
+  font-family: Times, "Times New Roman", serif;
 
   font-size: 16px;
   line-height: 20px;
@@ -152,7 +164,7 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
 //
 
 @mixin caption {
-  font-family: Helvetica, sans-serif;
+  font-family: Times, "Times New Roman", serif;
 
   font-size: 12px;
   line-height: 16px;
@@ -160,16 +172,4 @@ font-family: "FONT_NAME", Times, "Times New Roman", serif;
 
 .caption {
   @include caption;
-}
-
-//
-
-em,
-.em {
-  font-style: italic;
-}
-
-strong,
-.strong {
-  font-weight: bold;
 }
