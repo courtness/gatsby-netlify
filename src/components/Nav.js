@@ -2,6 +2,7 @@
 
 import React, { Component, useContext } from "react";
 import { Link } from "gatsby";
+import _ from "underscore";
 import { AppContext } from "~context/AppContext";
 import { fancyError } from "~utils/helpers";
 

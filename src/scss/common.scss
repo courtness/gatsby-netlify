@@ -33,14 +33,23 @@
   padding-bottom: 100%;
 }
 
-.border-b,
-.border-t {
+.border-b {
   &-black {
     border-bottom: 1px solid theme("colors.black");
   }
 
   &-white {
     border-bottom: 1px solid theme("colors.white");
+  }
+}
+
+.border-t {
+  &-black {
+    border-top: 1px solid theme("colors.black");
+  }
+
+  &-white {
+    border-top: 1px solid theme("colors.white");
   }
 }
 

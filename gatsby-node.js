@@ -4,9 +4,7 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-//
-// JS keyword path resolution
-
+const chalk = require(`chalk`);
 const path = require(`path`);
 const { createFilePath } = require(`gatsby-source-filesystem`);
 const { fmImagesToRelative } = require(`gatsby-remark-relative-images`);
@@ -126,8 +124,22 @@ exports.createPages = ({ graphql, actions }) => {
               slug
             }
             frontmatter {
-              handle
               templateKey
+              overrideSlug
+            }
+          }
+        }
+      }
+      allShopifyProduct {
+        edges {
+          node {
+            handle
+            variants {
+              id
+              selectedOptions {
+                name
+                value
+              }
             }
           }
         }
@@ -155,55 +167,62 @@ exports.createPages = ({ graphql, actions }) => {
 
     const { allMarkdownRemark, allShopifyAdminProduct } = result.data;
 
-    // Creates product pages
+    allShopifyAdminProduct.edges.forEach(edge => {
+      if (edge.node.id === `dummy`) {
+        return;
+      }
 
-    allMarkdownRemark.edges.forEach(markdownEdge => {
-      const { frontmatter } = markdownEdge.node;
+      edge.node.products.forEach(shopifyProduct => {
+        const { handle } = shopifyProduct;
+        let pagePath = `/products/${handle}`;
+        let markdownId = ``;
 
-      let inShopify = false;
-      let multiVariant = false;
+        //
+        // override Shopify product with local markdown, if available
 
-      allShopifyAdminProduct.edges.forEach(edge => {
-        if (edge.node.id !== `dummy`) {
-          edge.node.products.forEach(shopifyProduct => {
-            if (inShopify && multiVariant) {
-              return;
-            }
+        allMarkdownRemark.edges.forEach(({ node }) => {
+          const { slug } = node.fields;
 
-            if (frontmatter.handle === shopifyProduct.handle) {
-              inShopify = true;
+          if (slug === pagePath || slug === `${pagePath}/`) {
+            const { overrideSlug } = node.frontmatter;
 
-              if (shopifyProduct.variants.length >= 2) {
-                multiVariant = true;
-              }
-            }
-          });
+            markdownId = node.id;
+            pagePath = `/products/${overrideSlug}`;
+          }
+        });
+
+        //
+
+        if (markdownId !== ``) {
+          console.log(
+            `${chalk.blue(`createPages → shopify [markdown] |`)} ${pagePath}`
+          );
+        } else {
+          console.log(
+            `${chalk.green(`createPages → shopify [defaults] |`)} ${pagePath}`
+          );
         }
-      });
 
-      createPage({
-        path: markdownEdge.node.fields.slug,
-        component: path.resolve(`src/templates/shopify-product-page.js`),
-        context: {
-          handle: frontmatter.handle,
-          id: markdownEdge.node.id,
-          inShopify,
-          multiVariant
-        }
+        createPage({
+          path: pagePath,
+          component: path.resolve(`src/templates/shopify-product-page.js`),
+          context: {
+            markdownId,
+            handle
+          }
+        });
       });
     });
 
-    // Creates all the other pages
-
-    allMarkdownRemark.edges.forEach(edge => {
-      const { id } = edge.node;
-      const { slug } = edge.node.fields;
+    allMarkdownRemark.edges.forEach(({ node }) => {
+      const { id, frontmatter } = node;
+      const { slug } = node.fields;
 
       if (!slug.startsWith(`/products/`) || slug === `/products/`) {
         createPage({
           path: slug,
           component: path.resolve(
-            `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
+            `src/templates/${String(frontmatter.templateKey)}.js`
           ),
           context: {
             id
