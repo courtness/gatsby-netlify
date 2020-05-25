@@ -18,6 +18,10 @@
   transform: translate3d(-50%, -50%, 0) scaleX(-1);
 }
 
+.invert-x {
+  transform: scaleX(-1);
+}
+
 .gpu {
   backface-visibility: hidden;
   perspective: 1000;
@@ -31,6 +35,16 @@
 .square {
   width: 100%;
   padding-bottom: 100%;
+}
+
+.border {
+  &-black {
+    border: 1px solid theme("colors.black");
+  }
+
+  &-white {
+    border: 1px solid theme("colors.white");
+  }
 }
 
 .border-b {

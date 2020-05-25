@@ -18,14 +18,21 @@ const query = graphql`
   }
 `;
 
-const SEO = props => {
-  const {
-    customDescription,
-    customKeywords,
-    customTitle,
-    noIndex,
-    path
-  } = props;
+const SEO = ({
+  customDescription,
+  customKeywords,
+  customTitle,
+  noindex,
+  path
+}) => {
+  if (noindex) {
+    return (
+      <Helmet>
+        <html lang="en" />
+        <meta name="robots" content="noindex" />
+      </Helmet>
+    );
+  }
 
   return (
     <StaticQuery
@@ -60,8 +67,6 @@ const SEO = props => {
             <html lang="en" />
 
             <meta name="description" content={seo.description} />
-
-            {noIndex ? <meta name="robots" content="noindex" /> : null}
 
             <meta name="image" content={seo.image} />
 
@@ -101,7 +106,7 @@ SEO.defaultProps = {
   customDescription: null,
   customKeywords: null,
   customTitle: null,
-  noIndex: false,
+  noindex: false,
   path: null
 };
 
@@ -109,7 +114,7 @@ SEO.propTypes = {
   customDescription: PropTypes.string,
   customKeywords: PropTypes.string,
   customTitle: PropTypes.string,
-  noIndex: PropTypes.bool,
+  noindex: PropTypes.bool,
   path: PropTypes.string
 };
 
