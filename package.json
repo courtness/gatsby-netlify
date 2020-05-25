@@ -8,9 +8,6 @@
   "scripts": {
     "clean": "gatsby clean",
     "dev": "gatsby develop -H 0.0.0.0",
-    "start": "run-p start:**",
-    "start:app": "npm run develop",
-    "start:lambda": "netlify-lambda serve src/lambda",
     "build": "run-p start:**",
     "build:app": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "build:lambda": "netlify-lambda build src/lambda"
