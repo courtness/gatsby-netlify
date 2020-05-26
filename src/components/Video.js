@@ -25,6 +25,11 @@ class VideoComponent extends Component {
   }
 
   componentWillUnmount() {
+    if (this.videoRef.current) {
+      this.videoRef.current.onpause = null;
+      this.videoRef.current.onplaying = null;
+    }
+
     if (window) {
       window.removeEventListener(`scroll`, this.throttledHandleScroll, false);
     }
