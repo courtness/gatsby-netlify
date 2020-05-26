@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React, { useContext, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { DocumentContext } from "~context/DocumentContext";
@@ -22,6 +20,12 @@ const AppearOnScroll = ({ children, once }) => {
     }
   }
 
+  let computedChildren = children;
+
+  if (typeof children === `function`) {
+    computedChildren = children({ visible });
+  }
+
   return (
     <div
       ref={containerRef}
@@ -29,7 +33,7 @@ const AppearOnScroll = ({ children, once }) => {
         visible ? `animation-appear` : `invisible`
       } animation-delay-2`}
     >
-      {children}
+      {computedChildren}
     </div>
   );
 };
@@ -39,7 +43,7 @@ AppearOnScroll.defaultProps = {
 };
 
 AppearOnScroll.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
   once: PropTypes.bool
 };
 
