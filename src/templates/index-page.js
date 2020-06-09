@@ -21,7 +21,7 @@ const IndexPage = ({ data, location }) => {
         path={location.pathname}
       />
 
-      <Layout className="index-page w-full relative flex flex-col justify-between pt-16">
+      <Layout className="index-page w-full relative pt-16">
         <section className="grid">
           <h1 className="grid-end-12 my-8 f3">{frontmatter.title}</h1>
         </section>

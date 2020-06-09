@@ -1,0 +1,53 @@
+import { useEffect, useState } from "react";
+
+export const useMountEffect = runnable => useEffect(runnable, []);
+
+export const useKeyPress = targetKey => {
+  const [keyPressed, setKeyPressed] = useState(false);
+
+  const downHandler = ({ key }) => {
+    if (key === targetKey) {
+      setKeyPressed(true);
+    }
+  };
+
+  const upHandler = ({ key }) => {
+    if (key === targetKey) {
+      setKeyPressed(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener(`keydown`, downHandler);
+    window.addEventListener(`keyup`, upHandler);
+    return () => {
+      window.removeEventListener(`keydown`, downHandler);
+      window.removeEventListener(`keyup`, upHandler);
+    };
+  }, []);
+
+  return keyPressed;
+};
+
+export const useTimeout = (
+  callback,
+  timeout = 0,
+  { renderCancel = false } = {}
+) => {
+  let timeoutId;
+
+  const cancel = () => timeoutId && clearTimeout(timeoutId);
+
+  useEffect(
+    () => {
+      timeoutId = setTimeout(callback, timeout);
+
+      return cancel;
+    },
+    !renderCancel
+      ? [setTimeout, clearTimeout]
+      : [callback, timeout, setTimeout, clearTimeout]
+  );
+
+  return cancel;
+};

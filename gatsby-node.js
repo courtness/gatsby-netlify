@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Implement Gatsby's Node APIs in this file.
  *
@@ -24,92 +25,7 @@ exports.onCreateWebpackConfig = ({ actions }) => {
   });
 };
 
-exports.createPages = ({ actions, graphql }) => {
-  const { createPage } = actions;
-
-  return graphql(`
-    {
-      allMarkdownRemark(limit: 1000) {
-        edges {
-          node {
-            id
-            fields {
-              slug
-            }
-            frontmatter {
-              templateKey
-            }
-          }
-        }
-      }
-    }
-  `).then(result => {
-    if (result.errors) {
-      throw result.errors;
-    }
-
-    const pages = result.data.allMarkdownRemark.edges;
-
-    pages.forEach(edge => {
-      const { id } = edge.node;
-
-      createPage({
-        path: edge.node.fields.slug,
-        component: path.resolve(
-          `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
-        ),
-        context: {
-          id
-        }
-      });
-    });
-
-    return true;
-  });
-};
-
-/*
-// Wordpress
-
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
-
-  const result = await graphql(`
-    {
-      allWordpressPost {
-        edges {
-          node {
-            id
-            slug
-          }
-        }
-      }
-    }
-  `);
-
-  if (result.errors) {
-    // eslint-disable-next-line no-console
-    console.error(result.errors);
-  }
-
-  const { allWordpressPost } = result.data;
-
-  const postTemplate = path.resolve(`./src/templates/wordpress-post.js`);
-
-  allWordpressPost.edges.forEach(edge => {
-    createPage({
-      path: `/${edge.node.slug}/`,
-      component: slash(postTemplate),
-      context: {
-        id: edge.node.id
-      }
-    });
-  });
-};
-*/
-
-/*
-// Shopify
+//
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -125,7 +41,7 @@ exports.createPages = ({ graphql, actions }) => {
             }
             frontmatter {
               templateKey
-              overrideSlug
+              shopifyHandle
             }
           }
         }
@@ -174,24 +90,17 @@ exports.createPages = ({ graphql, actions }) => {
 
       edge.node.products.forEach(shopifyProduct => {
         const { handle } = shopifyProduct;
-        let pagePath = `/products/${handle}`;
+        const pagePath = `/products/${handle}`;
+
         let markdownId = ``;
 
-        //
-        // override Shopify product with local markdown, if available
-
         allMarkdownRemark.edges.forEach(({ node }) => {
-          const { slug } = node.fields;
+          const { shopifyHandle } = node.frontmatter;
 
-          if (slug === pagePath || slug === `${pagePath}/`) {
-            const { overrideSlug } = node.frontmatter;
-
+          if (handle === shopifyHandle) {
             markdownId = node.id;
-            pagePath = `/products/${overrideSlug}`;
           }
         });
-
-        //
 
         if (markdownId !== ``) {
           console.log(
@@ -234,7 +143,6 @@ exports.createPages = ({ graphql, actions }) => {
     return true;
   });
 };
-*/
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
