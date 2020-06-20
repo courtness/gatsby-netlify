@@ -1,48 +1,25 @@
 /* eslint-disable react/prop-types */
 
-import React, { Component, useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "gatsby";
-import _ from "underscore";
 import { AppContext } from "~context/AppContext";
 import { fancyError } from "~utils/helpers";
+import { useKeyPress } from "~utils/hooks";
 
-class NavComponent extends Component {
-  throttledHandleScroll;
-
-  componentDidMount() {
-    if (window) {
-      this.throttledHandleScroll = _.throttle(this.handleScroll);
-
-      window.addEventListener(`keyup`, this.handleKeyup, false);
-      window.addEventListener(`scroll`, this.throttledHandleScroll, false);
-    }
-  }
+const Nav = () => {
+  const {
+    cart,
+    cartActive,
+    menuActive,
+    setCartActive,
+    setMenuActive
+  } = useContext(AppContext);
 
   //
 
-  handleKeyup = () => {
-    window.addEventListener(`keyup`, e => {
-      switch (e.keyCode) {
-        case 27:
-          this.close();
+  const cartTotal = 0;
 
-          break;
-
-        default:
-          break;
-      }
-    });
-  };
-
-  handleScroll = () => {
-    document.addEventListener(`scroll`, () => {
-      this.close();
-    });
-  };
-
-  //
-
-  checkout = () => {
+  const checkout = () => {
     if (
       !process.env.GATSBY_SHOPIFY_STORE ||
       process.env.GATSBY_SHOPIFY_STORE === ``
@@ -52,11 +29,9 @@ class NavComponent extends Component {
       return;
     }
 
-    const { appContext } = this.props;
-
     let cartString = ``;
 
-    appContext.cart.forEach(cartItem => {
+    cart.forEach(cartItem => {
       let prefix = `,`;
 
       if (cartString === ``) {
@@ -74,108 +49,98 @@ class NavComponent extends Component {
     win.focus();
   };
 
-  close = () => {
-    const { appContext } = this.props;
-
-    appContext.setCartActive(false);
-    appContext.setMenuActive(false);
+  const close = () => {
+    setCartActive(false);
+    setMenuActive(false);
   };
+
+  const escKeyPressed = useKeyPress(`Escape`);
+
+  useEffect(() => {
+    close();
+  }, [escKeyPressed]);
 
   //
 
-  render() {
-    const { appContext } = this.props;
-
-    const cartTotal = 0;
-
-    // todo: calc cartTotal
-
-    return (
+  return (
+    <div
+      className={`nav ${cartActive ? `cart-active` : ``} ${
+        menuActive ? `menu-active` : ``
+      } w-screen h-screen fixed flex items-center justify-between z-50`}
+    >
       <div
-        className={`nav ${appContext.cartActive ? `cart-active` : ``} ${
-          appContext.menuActive ? `menu-active` : ``
-        } w-screen h-screen fixed flex items-center justify-between z-50`}
-      >
-        <div
-          role="presentation"
-          className="nav__background w-screen h-screen fixed top-0 right-0 bottom-0 left-0 bg-black z-10"
-          onClick={this.close}
-        ></div>
+        role="presentation"
+        className="nav__background w-screen h-screen fixed top-0 right-0 bottom-0 left-0 bg-black z-10"
+        onClick={close}
+      ></div>
 
-        <div className="nav__cart h-full absolute top-0 right-0 pt-16 px-4 z-20 bg-black text-white">
-          <h3 className="f3 mb-4">Cart</h3>
+      <div className="nav__cart h-full absolute top-0 right-0 pt-16 px-4 z-20 bg-black text-white">
+        <h3 className="f3 mb-4">Cart</h3>
 
-          {(appContext.cart && appContext.cart.length && (
-            <>
-              <ul>
-                {appContext.cart.map(cartItem => (
-                  <li
-                    key={cartItem.handle}
-                    className="relative py-4 flex items-stretch"
-                  >
-                    <h3 className="f4 mb-4">{cartItem.title}</h3>
-                    <p className="b1">${cartItem.variants[0].price}</p>
+        {(cart && cart.length && (
+          <>
+            <ul>
+              {cart.map(cartItem => (
+                <li
+                  key={cartItem.handle}
+                  className="relative py-4 flex items-stretch"
+                >
+                  <h3 className="f4 mb-4">{cartItem.title}</h3>
+                  <p className="b1">${cartItem.variants[0].price}</p>
 
-                    <div>x{cartItem.quantity}</div>
-                  </li>
-                ))}
-              </ul>
+                  <div>x{cartItem.quantity}</div>
+                </li>
+              ))}
+            </ul>
 
-              <div className="relative mt-4">
-                <h4 className="f4">Total: {cartTotal.toFixed(2)}</h4>
-              </div>
+            <div className="relative mt-4">
+              <h4 className="f4">Total: {cartTotal.toFixed(2)}</h4>
+            </div>
 
-              <button
-                type="button"
-                onClick={this.checkout}
-                className="button w-full mt-6 mb-12"
-              >
-                Checkout
-              </button>
-            </>
-          )) || <h4 className="b1">Your cart is empty.</h4>}
-        </div>
-
-        <ul className="nav__menu h-full absolute top-0 left-0 py-24 px-4 z-20 bg-black text-white">
-          <li className="nav__menu__link f3">
-            <Link
-              className="block text-white"
-              to="/"
-              onClick={() => appContext.setMenuActive(false)}
+            <button
+              type="button"
+              onClick={checkout}
+              className="button w-full mt-6 mb-12"
             >
-              <span>Home</span>
-            </Link>
-          </li>
-
-          <li className="nav__menu__link f3">
-            <Link
-              className="block text-white"
-              to="/about"
-              onClick={() => appContext.setMenuActive(false)}
-            >
-              <span>About</span>
-            </Link>
-          </li>
-
-          <li className="nav__menu__link f3">
-            <Link
-              className="block text-white"
-              to="/contact"
-              onClick={() => appContext.setMenuActive(false)}
-            >
-              <span>Contact</span>
-            </Link>
-          </li>
-        </ul>
+              Checkout
+            </button>
+          </>
+        )) || <h4 className="b1">Your cart is empty.</h4>}
       </div>
-    );
-  }
-}
 
-const Nav = () => {
-  const appContext = useContext(AppContext);
+      <ul className="nav__menu h-full absolute top-0 left-0 py-24 px-4 z-20 bg-black text-white">
+        <li className="nav__menu__link f3">
+          <Link
+            className="block text-white"
+            to="/"
+            onClick={() => setMenuActive(false)}
+          >
+            <span>Home</span>
+          </Link>
+        </li>
 
-  return <NavComponent appContext={appContext} />;
+        <li className="nav__menu__link f3">
+          <Link
+            className="block text-white"
+            to="/about"
+            onClick={() => setMenuActive(false)}
+          >
+            <span>About</span>
+          </Link>
+        </li>
+
+        <li className="nav__menu__link f3">
+          <Link
+            className="block text-white"
+            to="/contact"
+            onClick={() => setMenuActive(false)}
+          >
+            <span>Contact</span>
+          </Link>
+        </li>
+      </ul>
+    </div>
+  );
 };
 
 export default Nav;

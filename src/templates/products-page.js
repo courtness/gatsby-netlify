@@ -78,49 +78,70 @@ export const query = graphql`
           }
           frontmatter {
             title
-            shopifyHandle
-          }
-        }
-      }
-    }
-    allShopifyProduct {
-      edges {
-        node {
-          id
-          title
-          description
-          handle
-          images {
-            originalSrc
-          }
-          productType
-          vendor
-          variants {
-            id
-            title
-            image {
-              originalSrc
-            }
-            price
-            selectedOptions {
-              name
-              value
-            }
-          }
-        }
-      }
-    }
-    allShopifyAdminProduct {
-      edges {
-        node {
-          products {
-            handle
-            variants {
-              alternative_id
-            }
           }
         }
       }
     }
   }
 `;
+// export const query = graphql`
+//   query ProductsPage($id: String!) {
+//     markdownRemark(id: { eq: $id }) {
+//       frontmatter {
+//         title
+//       }
+//     }
+//     allMarkdownRemark {
+//       edges {
+//         node {
+//           fields {
+//             slug
+//           }
+//           frontmatter {
+//             title
+//             shopifyHandle
+//           }
+//         }
+//       }
+//     }
+//     allShopifyProduct {
+//       edges {
+//         node {
+//           id
+//           title
+//           description
+//           handle
+//           images {
+//             originalSrc
+//           }
+//           productType
+//           vendor
+//           variants {
+//             id
+//             title
+//             image {
+//               originalSrc
+//             }
+//             price
+//             selectedOptions {
+//               name
+//               value
+//             }
+//           }
+//         }
+//       }
+//     }
+//     allShopifyAdminProduct {
+//       edges {
+//         node {
+//           products {
+//             handle
+//             variants {
+//               alternative_id
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
