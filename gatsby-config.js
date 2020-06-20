@@ -179,20 +179,21 @@ module.exports = {
     //     display: `block`
     //   }
     // },
-    {
-      resolve: `gatsby-plugin-sass`,
-      options: {
-        postCssPlugins: [autoprefixer, tailwindCss]
-      }
-    },
-    {
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        printRejected: true,
-        tailwind: true,
-        whitelistPatterns: [/gatsby-/, /glide/]
-      }
-    },
+    // {
+    //   resolve: `gatsby-plugin-sass`,
+    //   options: {
+    //     postCssPlugins: [autoprefixer, tailwindCss]
+    //   }
+    // },
+    // {
+    //   resolve: `gatsby-plugin-purgecss`,
+    //   options: {
+    //     printRejected: true,
+    //     tailwind: true,
+    //     whitelistPatterns: [/gatsby-/, /glide/]
+    //   }
+    // },
+    `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-root-import`,
     {

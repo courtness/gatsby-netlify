@@ -13,6 +13,8 @@
     "build:lambda": "netlify-lambda build src/lambda"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
     "@glidejs/glide": "^3.4.1",
     "@reach/router": "^1.2.1",
     "autoprefixer": "^9.7.1",
@@ -25,6 +27,7 @@
     "gatsby": "^2.21.24",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-bugherd": "^1.0.2",
+    "gatsby-plugin-emotion": "^4.3.0",
     "gatsby-plugin-facebook-pixel": "^1.0.3",
     "gatsby-plugin-google-analytics": "^2.3.4",
     "gatsby-plugin-google-fonts": "^1.0.1",
