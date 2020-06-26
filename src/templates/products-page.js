@@ -147,7 +147,9 @@ export const query = graphql`
 //         title
 //       }
 //     }
-//     allMarkdownRemark {
+//     allMarkdownRemark(
+//       filter: { frontmatter: { templateKey: { eq: "product-page" } } }
+//     ) {
 //       edges {
 //         node {
 //           fields {
