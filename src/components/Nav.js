@@ -122,6 +122,16 @@ const Nav = () => {
         <li className="nav__menu__link f3">
           <Link
             className="block text-white"
+            to="/products"
+            onClick={() => setMenuActive(false)}
+          >
+            <span>Products</span>
+          </Link>
+        </li>
+
+        <li className="nav__menu__link f3">
+          <Link
+            className="block text-white"
             to="/about"
             onClick={() => setMenuActive(false)}
           >

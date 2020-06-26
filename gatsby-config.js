@@ -125,7 +125,7 @@ function shopifySources() {
         accessToken: process.env.GATSBY_SHOPIFY_STOREFRONT_TOKEN,
         verbose: true,
         paginationSize: 250,
-        includeCollections: [`shop`, `content`]
+        includeCollections: [`shop`]
       }
     });
   }
@@ -179,23 +179,24 @@ module.exports = {
     //     display: `block`
     //   }
     // },
-    // {
-    //   resolve: `gatsby-plugin-sass`,
-    //   options: {
-    //     postCssPlugins: [autoprefixer, tailwindCss]
-    //   }
-    // },
-    // {
-    //   resolve: `gatsby-plugin-purgecss`,
-    //   options: {
-    //     printRejected: true,
-    //     tailwind: true,
-    //     whitelistPatterns: [/gatsby-/, /glide/]
-    //   }
-    // },
-    `gatsby-plugin-emotion`,
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        postCssPlugins: [autoprefixer, tailwindCss]
+      }
+    },
+    {
+      resolve: `gatsby-plugin-purgecss`,
+      options: {
+        printRejected: true,
+        tailwind: true,
+        whitelistPatterns: [/gatsby-/, /glide/]
+      }
+    },
+    // `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-root-import`,
+    `gatsby-plugin-transition-link`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
