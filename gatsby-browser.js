@@ -16,7 +16,7 @@ import DocumentProvider from "~context/DocumentContext";
 import Header from "~components/Header";
 import Nav from "~components/Nav";
 
-// import "~scss/index.scss";
+import "~scss/index.scss";
 
 export const wrapRootElement = ({ element }) => {
   return (

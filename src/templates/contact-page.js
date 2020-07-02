@@ -7,8 +7,6 @@ import Footer from "~components/Footer";
 import Layout from "~components/Layout";
 import SEO from "~components/SEO";
 
-//
-
 const ContactPage = ({ data, location }) => {
   const { frontmatter } = data.markdownRemark;
 
