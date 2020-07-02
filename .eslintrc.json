@@ -31,9 +31,11 @@
         ["~assets", "./src/assets"],
         ["~components", "./src/components"],
         ["~context", "./src/context"],
+        ["~data", "./src/data"],
         ["~node_modules", "./node_modules"],
         ["~scss", "./src/scss"],
-        ["~utils", "./src/utils"]
+        ["~utils", "./src/utils"],
+        ["~workers", "./src/workers"]
       ]
     }
   }

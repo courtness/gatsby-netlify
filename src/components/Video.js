@@ -1,63 +1,45 @@
-import React, { Component, createRef, useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import _ from "underscore";
 import { DocumentContext } from "~context/DocumentContext";
 
-class VideoComponent extends Component {
-  listening = false;
+const Video = ({
+  autoPause,
+  autoPlay,
+  className,
+  loop,
+  muted,
+  playing,
+  playsInline,
+  poster,
+  src,
+  style
+}) => {
+  const { scrollTop, windowHeight } = useContext(DocumentContext);
+  const videoRef = useRef();
+  const [loaded, setLoaded] = useState(false);
 
-  throttledHandleScroll;
+  useEffect(() => {
+    if (videoRef?.current && !loaded) {
+      setLoaded(true);
 
-  videoRef = createRef();
+      videoRef.current.onpause = () => {
+        videoRef.current.playing = false;
+      };
 
-  componentDidMount() {
-    if (window) {
-      this.throttledHandleScroll = _.throttle(this.handleScroll);
-
-      window.addEventListener(`scroll`, this.throttledHandleScroll, false);
+      videoRef.current.onplaying = () => {
+        videoRef.current.playing = true;
+      };
     }
-  }
+  }, [videoRef.current]);
 
-  componentDidUpdate() {
-    if (this.videoRef && this.videoRef.current && !this.listening) {
-      this.addVideoPlaybackListener();
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.videoRef.current) {
-      this.videoRef.current.onpause = null;
-      this.videoRef.current.onplaying = null;
-    }
-
-    if (window) {
-      window.removeEventListener(`scroll`, this.throttledHandleScroll, false);
-    }
-  }
-
-  //
-
-  addVideoPlaybackListener = () => {
-    this.listening = true;
-
-    this.videoRef.current.onpause = () => {
-      this.videoRef.current.playing = false;
-    };
-
-    this.videoRef.current.onplaying = () => {
-      this.videoRef.current.playing = true;
-    };
-  };
-
-  handleScroll = () => {
-    if (!this.videoRef || !this.videoRef.current) {
+  useEffect(() => {
+    if (!autoPause || !loaded) {
       return;
     }
 
-    const video = this.videoRef.current;
-    const { documentContext } = this.props;
-    const { windowHeight } = documentContext;
-    const { height, top } = video.getBoundingClientRect();
+    const { height, top } = videoRef.current.getBoundingClientRect();
+    const video = videoRef.current;
 
     if (top > -height && top < windowHeight) {
       if (!video.playing) {
@@ -66,93 +48,64 @@ class VideoComponent extends Component {
     } else if (video.playing) {
       video.pause();
     }
-  };
+  }, [scrollTop]);
 
-  //
+  useEffect(() => {
+    if (!loaded) {
+      return;
+    }
 
-  render() {
-    const {
-      autoPlay,
-      className,
-      muted,
-      loop,
-      playsInline,
-      poster,
-      src
-    } = this.props;
+    const video = videoRef.current;
 
-    return (
-      <video
-        ref={this.videoRef}
-        className={className}
-        autoPlay={autoPlay}
-        muted={muted}
-        loop={loop}
-        playsInline={playsInline}
-        poster={poster}
-      >
-        <source src={src}></source>
-      </video>
-    );
-  }
-}
-
-VideoComponent.propTypes = {
-  autoPlay: PropTypes.string.isRequired,
-  className: PropTypes.string.isRequired,
-  documentContext: PropTypes.shape({
-    windowHeight: PropTypes.number.isRequired
-  }).isRequired,
-  muted: PropTypes.bool.isRequired,
-  loop: PropTypes.bool.isRequired,
-  playsInline: PropTypes.bool.isRequired,
-  poster: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired
-};
-
-const Video = ({
-  autoPlay,
-  className,
-  muted,
-  loop,
-  playsInline,
-  poster,
-  src
-}) => {
-  const documentContext = useContext(DocumentContext);
+    if (playing) {
+      if (!video.playing) {
+        video.play();
+      }
+    } else if (video.playing) {
+      video.pause();
+    }
+  }, [loaded, playing, videoRef.current]);
 
   return (
-    <VideoComponent
-      autoPlay={autoPlay}
+    <video
+      ref={videoRef}
       className={className}
-      documentContext={documentContext}
+      autoPlay={autoPlay}
       muted={muted}
       loop={loop}
       playsInline={playsInline}
       poster={poster}
-      src={src}
-    />
+      style={style}
+    >
+      <source src={src}></source>
+    </video>
   );
 };
 
 Video.defaultProps = {
+  autoPause: true,
   autoPlay: false,
   className: ``,
-  muted: true,
   loop: true,
+  muted: true,
+  playing: true,
   playsInline: true,
   poster: null,
-  src: ``
+  src: ``,
+  style: {}
 };
 
 Video.propTypes = {
+  autoPause: PropTypes.bool,
   autoPlay: PropTypes.bool,
   className: PropTypes.string,
-  muted: PropTypes.bool,
   loop: PropTypes.bool,
+  muted: PropTypes.bool,
+  playing: PropTypes.bool,
   playsInline: PropTypes.bool,
   poster: PropTypes.string,
-  src: PropTypes.string
+  src: PropTypes.string,
+  style: PropTypes.shape({})
 };
 
 export default Video;

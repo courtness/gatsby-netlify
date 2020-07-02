@@ -24,6 +24,10 @@ Layout.defaultProps = {
   header: `white`
 };
 
+Layout.defaultProps = {
+  header: `white`
+};
+
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
