@@ -1,53 +1,38 @@
-import React, { Component, createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { globalHistory } from "@reach/router";
 
 export const AppContext = createContext({});
 
-class AppProvider extends Component {
-  state = {
-    cartActive: false,
-    menuActive: false
-  };
+const AppProvider = ({ children }) => {
+  const [headerStyle, setHeaderStyle] = useState(null);
+  const [menuActive, setMenuActive] = useState(false);
+  const [pathname, setPathname] = useState(null);
 
-  //
+  useEffect(() => {
+    if (window) {
+      setPathname(window.location.pathname);
+    }
 
-  componentDidMount() {
-    // eslint-disable-next-line no-console
-    console.log(`%c <3 + $ `, `background: #000000; color: #00ff00`);
-  }
-
-  //
-
-  setCartActive = cartActive => {
-    this.setState({
-      cartActive
+    return globalHistory.listen(({ location }) => {
+      setPathname(location.pathname);
     });
-  };
+  }, []);
 
-  setMenuActive = menuActive => {
-    this.setState({
-      menuActive
-    });
-  };
-
-  //
-
-  render() {
-    return (
-      <AppContext.Provider
-        value={{
-          cartActive: this.state.cartActive,
-          menuActive: this.state.menuActive,
-          //
-          setCartActive: this.setCartActive,
-          setMenuActive: this.setMenuActive
-        }}
-      >
-        {this.props.children}
-      </AppContext.Provider>
-    );
-  }
-}
+  return (
+    <AppContext.Provider
+      value={{
+        headerStyle,
+        setHeaderStyle,
+        menuActive,
+        setMenuActive,
+        pathname
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
 
 AppProvider.propTypes = {
   children: PropTypes.node.isRequired

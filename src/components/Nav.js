@@ -1,181 +1,99 @@
 /* eslint-disable react/prop-types */
 
-import React, { Component, useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "gatsby";
-import _ from "underscore";
 import { AppContext } from "~context/AppContext";
-import { fancyError } from "~utils/helpers";
-
-class NavComponent extends Component {
-  throttledHandleScroll;
-
-  componentDidMount() {
-    if (window) {
-      this.throttledHandleScroll = _.throttle(this.handleScroll);
-
-      window.addEventListener(`keyup`, this.handleKeyup, false);
-      window.addEventListener(`scroll`, this.throttledHandleScroll, false);
-    }
-  }
-
-  //
-
-  handleKeyup = () => {
-    window.addEventListener(`keyup`, e => {
-      switch (e.keyCode) {
-        case 27:
-          this.close();
-
-          break;
-
-        default:
-          break;
-      }
-    });
-  };
-
-  handleScroll = () => {
-    document.addEventListener(`scroll`, () => {
-      this.close();
-    });
-  };
-
-  //
-
-  checkout = () => {
-    if (
-      !process.env.GATSBY_SHOPIFY_STORE ||
-      process.env.GATSBY_SHOPIFY_STORE === ``
-    ) {
-      fancyError(`Shopify environment variables have not been defined.`);
-
-      return;
-    }
-
-    const { appContext } = this.props;
-
-    let cartString = ``;
-
-    appContext.cart.forEach(cartItem => {
-      let prefix = `,`;
-
-      if (cartString === ``) {
-        prefix = `/`;
-      }
-
-      cartString = `${cartString}${prefix}${cartItem.admin_variant_id}:${cartItem.quantity}`;
-    });
-
-    const win = window.open(
-      `https://${process.env.GATSBY_SHOPIFY_STORE}.myshopify.com/cart${cartString}`,
-      `_blank`
-    );
-
-    win.focus();
-  };
-
-  close = () => {
-    const { appContext } = this.props;
-
-    appContext.setCartActive(false);
-    appContext.setMenuActive(false);
-  };
-
-  //
-
-  render() {
-    const { appContext } = this.props;
-
-    const cartTotal = 0;
-
-    // todo: calc cartTotal
-
-    return (
-      <div
-        className={`nav ${appContext.cartActive ? `cart-active` : ``} ${
-          appContext.menuActive ? `menu-active` : ``
-        } w-screen h-screen fixed flex items-center justify-between z-50`}
-      >
-        <div
-          role="presentation"
-          className="nav__background w-screen h-screen fixed top-0 right-0 bottom-0 left-0 bg-black z-10"
-          onClick={this.close}
-        ></div>
-
-        <div className="nav__cart h-full absolute top-0 right-0 pt-16 px-4 z-20 bg-black text-white">
-          <h3 className="f3 mb-4">Cart</h3>
-
-          {(appContext.cart && appContext.cart.length && (
-            <>
-              <ul>
-                {appContext.cart.map(cartItem => (
-                  <li
-                    key={cartItem.handle}
-                    className="relative py-4 flex items-stretch"
-                  >
-                    <h3 className="f4 mb-4">{cartItem.title}</h3>
-                    <p className="b1">${cartItem.variants[0].price}</p>
-
-                    <div>x{cartItem.quantity}</div>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="relative mt-4">
-                <h4 className="f4">Total: {cartTotal.toFixed(2)}</h4>
-              </div>
-
-              <button
-                type="button"
-                onClick={this.checkout}
-                className="button w-full mt-6 mb-12"
-              >
-                Checkout
-              </button>
-            </>
-          )) || <h4 className="b1">Your cart is empty.</h4>}
-        </div>
-
-        <ul className="nav__menu h-full absolute top-0 left-0 py-24 px-4 z-20 bg-black text-white">
-          <li className="nav__menu__link f3">
-            <Link
-              className="block text-white"
-              to="/"
-              onClick={() => appContext.setMenuActive(false)}
-            >
-              <span>Home</span>
-            </Link>
-          </li>
-
-          <li className="nav__menu__link f3">
-            <Link
-              className="block text-white"
-              to="/about"
-              onClick={() => appContext.setMenuActive(false)}
-            >
-              <span>About</span>
-            </Link>
-          </li>
-
-          <li className="nav__menu__link f3">
-            <Link
-              className="block text-white"
-              to="/contact"
-              onClick={() => appContext.setMenuActive(false)}
-            >
-              <span>Contact</span>
-            </Link>
-          </li>
-        </ul>
-      </div>
-    );
-  }
-}
+import { DocumentContext } from "~context/DocumentContext";
+import { useKeyPress } from "~utils/hooks";
+import Cross from "~components/svg/Cross";
 
 const Nav = () => {
-  const appContext = useContext(AppContext);
+  const { menuActive, setMenuActive } = useContext(AppContext);
+  const { scrollTop } = useContext(DocumentContext);
 
-  return <NavComponent appContext={appContext} />;
+  //
+
+  const close = () => {
+    setMenuActive(false);
+  };
+
+  //
+
+  const escKeyPressed = useKeyPress(`Escape`);
+
+  useEffect(() => {
+    close();
+  }, [escKeyPressed]);
+
+  useEffect(() => {
+    close();
+  }, [scrollTop]);
+
+  //
+
+  return (
+    <div
+      className={`nav ${
+        menuActive ? `menu-active` : ``
+      } w-screen h-screen fixed flex items-center justify-between z-40 pointer-events-none`}
+    >
+      <div
+        role="presentation"
+        className={`nav__background ${
+          menuActive ? `opacity-50 pointer-events-auto` : `opacity-0`
+        } transition-opacity w-screen h-screen fixed top-0 right-0 bottom-0 left-0 z-10 bg-black`}
+        onClick={close}
+      ></div>
+
+      <div
+        className={`nav__menu ${
+          menuActive ? `pointer-events-auto` : ``
+        } transition-transform h-full absolute top-0 left-0 pt-16 px-8 z-20 bg-black text-white`}
+      >
+        <button
+          className="w-12 h-12 absolute top-0 left-0 flex items-center justify-center ml-2"
+          onClick={close}
+          type="button"
+        >
+          <Cross className="w-5 h-5" color="white" />
+        </button>
+
+        {menuActive && (
+          <ul>
+            <li className="animation-appear-right animation-delay-1 hover-underline f3">
+              <Link to="/" className="block py-1" onClick={close}>
+                Home
+              </Link>
+            </li>
+
+            <li className="animation-appear-right animation-delay-2 hover-underline f3">
+              <Link to="/products" className="block py-1" onClick={close}>
+                Products
+              </Link>
+            </li>
+
+            <li className="animation-appear-right animation-delay-3 hover-underline f3">
+              <Link to="/about" className="block py-1" onClick={close}>
+                About
+              </Link>
+            </li>
+
+            <li className="animation-appear-right animation-delay-4 hover-underline f3">
+              <Link to="/contact" className="block py-1" onClick={close}>
+                Contact
+              </Link>
+            </li>
+
+            <li className="animation-appear-right animation-delay-5 hover-underline f3">
+              <Link to="/blog" className="block py-1" onClick={close}>
+                Blog
+              </Link>
+            </li>
+          </ul>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Nav;

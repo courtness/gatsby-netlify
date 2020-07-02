@@ -1,6 +1,24 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const useMountEffect = runnable => useEffect(runnable, []);
+
+export const useInterval = (callback, delay) => {
+  const savedCallback = useRef(() => {});
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  });
+
+  useEffect(() => {
+    if (delay !== null) {
+      const interval = setInterval(() => savedCallback.current(), delay || 0);
+
+      return () => clearInterval(interval);
+    }
+
+    return undefined;
+  }, [delay]);
+};
 
 export const useKeyPress = targetKey => {
   const [keyPressed, setKeyPressed] = useState(false);

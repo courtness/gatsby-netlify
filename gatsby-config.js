@@ -64,78 +64,6 @@ function trackingPlugins() {
 
 //
 
-function wordpressSources() {
-  const sources = [];
-
-  if (!process.env.GATSBY_WORDPRESS_SOURCE) {
-    return sources;
-  }
-
-  let protocol = `https`;
-
-  if (process.env.GATSBY_WORDPRESS_PROTOCOL) {
-    protocol = process.env.GATSBY_WORDPRESS_PROTOCOL;
-  }
-
-  sources.push({
-    resolve: `gatsby-source-wordpress`,
-    options: {
-      baseUrl: process.env.GATSBY_WORDPRESS_SOURCE,
-      protocol,
-      hostingWPCOM: false,
-      useACF: true,
-      includedRoutes: [`/*/*/media`, `/*/*/posts`, `/*/*/pages`]
-    }
-  });
-
-  return sources;
-}
-
-function shopifySources() {
-  const sources = [];
-
-  if (
-    process.env.GATSBY_SHOPIFY_STORE &&
-    process.env.GATSBY_SHOPIFY_API_KEY &&
-    process.env.GATSBY_SHOPIFY_PASSWORD
-  ) {
-    const endpoint = `https://${process.env.GATSBY_SHOPIFY_API_KEY}:${process.env.GATSBY_SHOPIFY_PASSWORD}@${process.env.GATSBY_SHOPIFY_STORE}.myshopify.com/admin/products.json`;
-
-    sources.push({
-      resolve: `gatsby-source-apiserver`,
-      options: {
-        url: endpoint,
-        method: `get`,
-        headers: {
-          "Content-Type": `application/json`
-        },
-        name: `shopifyAdminProduct`
-      }
-    });
-  }
-
-  if (
-    process.env.GATSBY_SHOPIFY_STORE &&
-    process.env.GATSBY_SHOPIFY_STOREFRONT_TOKEN
-  ) {
-    sources.push({
-      resolve: `gatsby-source-shopify`,
-      options: {
-        shopName: process.env.GATSBY_SHOPIFY_STORE,
-        accessToken: process.env.GATSBY_SHOPIFY_STOREFRONT_TOKEN,
-        verbose: true,
-        paginationSize: 250,
-        includeCollections: [`shop`, `content`]
-      }
-    });
-  }
-
-  return sources;
-}
-
-//
-// Export
-
 module.exports = {
   developMiddleware: app => {
     app.use(
@@ -223,8 +151,6 @@ module.exports = {
         name: `pages`
       }
     },
-    // ...wordpressSources(),
-    // ...shopifySources(),
     {
       resolve: `gatsby-transformer-remark`,
       options: {

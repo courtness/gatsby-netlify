@@ -12,11 +12,13 @@
 @import "base.scss";
 @import "common.scss";
 
+@import "components/Button.scss";
+@import "components/Footer.scss";
 @import "components/Header.scss";
 @import "components/Layout.scss";
 @import "components/Nav.scss";
 
 @import "templates/404.scss";
 @import "templates/about-page.scss";
-@import "templates/index-page.scss";
 @import "templates/contact-page.scss";
+@import "templates/index-page.scss";

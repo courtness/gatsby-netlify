@@ -54,13 +54,21 @@ strong,
 //
 
 @mixin f1 {
-  // @include sm {
-  // }
+  @include sm {
+    font-size: 80px;
+    line-height: 80px;
+  }
+
+  @include xs {
+    font-size: 72px;
+    line-height: 72px;
+  }
 
   font-family: Helvetica, Arial, sans-serif;
 
-  font-size: 92px;
-  line-height: 80px;
+  font-size: 200px;
+  line-height: 200px;
+  letter-spacing: -0.02em;
 }
 
 .f1 {
@@ -70,14 +78,16 @@ strong,
 //
 
 @mixin f2 {
-  // @include sm {
-  // }
+  @include sm {
+    font-size: 48px;
+    line-height: 48px;
+  }
 
   font-family: Helvetica, Arial, sans-serif;
 
-  font-size: 72px;
-  line-height: 60px;
-  letter-spacing: -0.2px;
+  font-size: 128px;
+  line-height: 128px;
+  letter-spacing: -0.02em;
 }
 
 .f2 {
@@ -87,14 +97,21 @@ strong,
 //
 
 @mixin f3 {
-  // @include sm {
-  // }
+  @include sm {
+    font-size: 36px;
+    line-height: 36px;
+    letter-spacing: -0.02em;
+  }
+
+  @include xs {
+    letter-spacing: -0.01em;
+  }
 
   font-family: Helvetica, Arial, sans-serif;
 
-  font-size: 48px;
-  line-height: 42px;
-  letter-spacing: 1px;
+  font-size: 96px;
+  line-height: 96px;
+  letter-spacing: -0.03em;
 }
 
 .f3 {
@@ -104,10 +121,20 @@ strong,
 //
 
 @mixin f4 {
+  @include sm {
+    font-size: 30px;
+    line-height: 30px;
+  }
+
+  @include xs {
+    letter-spacing: -0.02em;
+  }
+
   font-family: Helvetica, Arial, sans-serif;
 
-  font-size: 28px;
-  line-height: 36px;
+  font-size: 66px;
+  line-height: 72px;
+  letter-spacing: -0.02em;
 }
 
 .f4 {
@@ -117,14 +144,17 @@ strong,
 //
 
 @mixin f5 {
-  // @include sm {
-  // }
+  @include sm {
+    font-size: 28px;
+    line-height: 30px;
+    letter-spacing: -0.01em;
+  }
 
   font-family: Helvetica, Arial, sans-serif;
 
-  font-size: 30px;
-  line-height: 28px;
-  letter-spacing: 0.1px;
+  font-size: 42px;
+  line-height: 42px;
+  letter-spacing: -0.01em;
 }
 
 .f5 {
@@ -133,14 +163,43 @@ strong,
 
 //
 
-@mixin b1 {
-  // @include sm {
-  // }
+@mixin f6 {
+  @include sm {
+    font-size: 24px;
+    line-height: 28px;
+  }
 
-  font-family: Times, "Times New Roman", serif;
+  @include xs {
+    font-size: 16px;
+    line-height: 22px;
+    letter-spacing: -0.005em;
+  }
+
+  font-family: Helvetica, Arial, sans-serif;
+
+  font-size: 28px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+}
+
+.f6 {
+  @include f6;
+}
+
+//
+
+@mixin b1 {
+  @include xs {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  font-family: Helvetica, Arial, sans-serif;
 
   font-size: 20px;
   line-height: 24px;
+  letter-spacing: -0.01em;
 }
 
 .b1 {
@@ -150,13 +209,17 @@ strong,
 //
 
 @mixin b2 {
-  // @include sm {
-  // }
+  @include xs {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+  }
 
-  font-family: Times, "Times New Roman", serif;
+  font-family: Helvetica, Arial, sans-serif;
 
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: -0.01em;
 }
 
 .b2 {
@@ -166,13 +229,21 @@ strong,
 //
 
 @mixin b3 {
-  // @include sm {
-  // }
+  @include sm {
+    font-size: 14px;
+    line-height: 14px;
+  }
 
-  font-family: Times, "Times New Roman", serif;
+  @include xs {
+    font-size: 10px;
+    line-height: 16px;
+    letter-spacing: -0.01em;
+  }
 
-  font-size: 16px;
-  line-height: 20px;
+  font-family: Helvetica, Arial, sans-serif;
+
+  font-size: 13px;
+  line-height: 16px;
 }
 
 .b3 {
@@ -181,13 +252,6 @@ strong,
 
 //
 
-@mixin caption {
-  font-family: Times, "Times New Roman", serif;
-
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.caption {
-  @include caption;
+.mono {
+  font-family: "Courier New", Courier, monospace;
 }

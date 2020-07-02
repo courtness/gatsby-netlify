@@ -5,14 +5,14 @@ import { getWindowDimensions } from "~utils/dom";
 
 export const CursorContext = createContext({});
 
+// TODO : hooks rewrite
+
 class CursorProvider extends Component {
   state = {
     cursorCenterDeltaX: 0, // 0 at center, -0.5/0.5 at edges
     cursorCenterDeltaY: 0, // 0 at center, -0.5/0.5 at edges
     cursorPositionX: 0,
-    cursorPositionY: 0,
-    windowHeight: 0, // TODO : remove
-    windowWidth: 0 // TODO : remove
+    cursorPositionY: 0
   };
 
   //

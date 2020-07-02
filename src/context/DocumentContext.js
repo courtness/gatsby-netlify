@@ -5,9 +5,11 @@ import { getWindowDimensions } from "~utils/dom";
 
 export const DocumentContext = createContext({});
 
+// TODO : hooks rewrite
+
 class DocumentProvider extends Component {
   state = {
-    device: ``,
+    device: null,
     documentHeight: 0,
     scrollTop: 0,
     windowHeight: 0,
