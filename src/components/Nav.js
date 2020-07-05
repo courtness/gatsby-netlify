@@ -66,12 +66,6 @@ const Nav = () => {
               </Link>
             </li>
 
-            <li className="animation-appear-right animation-delay-2 hover-underline f3">
-              <Link to="/products" className="block py-1" onClick={close}>
-                Products
-              </Link>
-            </li>
-
             <li className="animation-appear-right animation-delay-3 hover-underline f3">
               <Link to="/about" className="block py-1" onClick={close}>
                 About
@@ -81,12 +75,6 @@ const Nav = () => {
             <li className="animation-appear-right animation-delay-4 hover-underline f3">
               <Link to="/contact" className="block py-1" onClick={close}>
                 Contact
-              </Link>
-            </li>
-
-            <li className="animation-appear-right animation-delay-5 hover-underline f3">
-              <Link to="/blog" className="block py-1" onClick={close}>
-                Blog
               </Link>
             </li>
           </ul>
