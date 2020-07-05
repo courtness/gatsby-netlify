@@ -20,6 +20,10 @@ export function isTablet() {
 }
 
 export function ieDetector() {
+  if (typeof window === `undefined`) {
+    return false;
+  }
+
   const ua = window.navigator.userAgent;
 
   const msie = ua.indexOf(`MSIE `);
