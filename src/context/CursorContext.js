@@ -1,80 +1,69 @@
-import React, { Component, createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import _ from "underscore";
 import { getWindowDimensions } from "~utils/dom";
 
 export const CursorContext = createContext({});
 
-// TODO : hooks rewrite
+const CursorProvider = ({ children }) => {
+  const [cursorCenterDeltaX, setCursorCenterDeltaX] = useState(0);
+  const [cursorCenterDeltaY, setCursorCenterDeltaY] = useState(0);
+  const [cursorPositionX, setCursorPositionX] = useState(0);
+  const [cursorPositionY, setCursorPositionY] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
 
-class CursorProvider extends Component {
-  state = {
-    cursorCenterDeltaX: 0, // 0 at center, -0.5/0.5 at edges
-    cursorCenterDeltaY: 0, // 0 at center, -0.5/0.5 at edges
-    cursorPositionX: 0,
-    cursorPositionY: 0
+  //
+
+  const handleMousemove = e => {
+    setCursorCenterDeltaX(-(0.5 - e.pageX / windowWidth));
+    setCursorCenterDeltaY(
+      -(0.5 - (e.pageY - window.pageYOffset) / windowHeight)
+    );
+    setCursorPositionX(e.pageX);
+    setCursorPositionY(e.pageY - window.pageYOffset);
+  };
+
+  const handleResize = () => {
+    setWindowHeight(getWindowDimensions().height);
+    setWindowWidth(getWindowDimensions().width);
   };
 
   //
 
-  componentDidMount() {
-    if (document) {
+  useEffect(() => {
+    if (typeof document !== `undefined` && document?.addEventListener) {
       document.addEventListener(
         `mousemove`,
-        _.throttle(this.handleMousemove),
+        _.throttle(handleMousemove),
         false
       );
     }
 
-    if (window) {
-      window.addEventListener(`resize`, _.throttle(this.handleResize), false);
+    if (typeof window !== `undefined` && window?.addEventListener) {
+      window.addEventListener(`resize`, _.throttle(handleResize), false);
 
-      setTimeout(() => {
-        this.handleResize();
-      });
+      handleResize();
     }
-  }
+  }, []);
 
   //
 
-  handleMousemove = event => {
-    this.setState(prevState => ({
-      cursorCenterDeltaX: -(0.5 - event.pageX / prevState.windowWidth),
-      cursorPositionX: event.pageX,
-      cursorCenterDeltaY: -(
-        0.5 -
-        (event.pageY - window.pageYOffset) / prevState.windowHeight
-      ),
-      cursorPositionY: event.pageY - window.pageYOffset
-    }));
-  };
-
-  handleResize = () => {
-    this.setState({
-      windowWidth: getWindowDimensions().width,
-      windowHeight: getWindowDimensions().height
-    });
-  };
-
-  //
-
-  render() {
-    return (
-      <CursorContext.Provider
-        value={{
-          cursorCenterDeltaX: this.state.cursorCenterDeltaX,
-          cursorCenterDeltaY: this.state.cursorCenterDeltaY,
-          cursorPositionX: this.state.cursorPositionX,
-          cursorPositionY: this.state.cursorPositionY,
-          windowWidth: this.state.windowWidth,
-          windowHeight: this.state.windowHeight
-        }}
-      >
-        {this.props.children}
-      </CursorContext.Provider>
-    );
-  }
-}
+  return (
+    <CursorContext.Provider
+      value={{
+        cursorCenterDeltaX,
+        cursorCenterDeltaY,
+        cursorPositionX,
+        cursorPositionY,
+        windowWidth,
+        windowHeight
+      }}
+    >
+      {children}
+    </CursorContext.Provider>
+  );
+};
 
 CursorProvider.propTypes = {
   children: PropTypes.node.isRequired

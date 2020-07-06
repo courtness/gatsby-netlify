@@ -31,11 +31,13 @@ function trackingPlugins() {
 
   if (process.env.GATSBY_GTAG_ID) {
     plugins.push({
-      resolve: `gatsby-plugin-gtag`,
+      resolve: `gatsby-plugin-google-tagmanager`,
       options: {
-        trackingId: process.env.GATSBY_GTAG_ID,
-        head: true,
-        anonymize: true
+        id: process.env.GATSBY_GTAG_ID,
+        includeInDevelopment: true,
+        defaultDataLayer: {
+          platform: `gatsby`
+        }
       }
     });
   }

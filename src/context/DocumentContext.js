@@ -1,90 +1,75 @@
-import React, { Component, createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import _ from "underscore";
 import { getWindowDimensions } from "~utils/dom";
 
 export const DocumentContext = createContext({});
 
-// TODO : hooks rewrite
+const DocumentProvider = ({ children }) => {
+  const [device, setDevice] = useState(null);
+  const [documentHeight, setDocumentHeight] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
 
-class DocumentProvider extends Component {
-  state = {
-    device: null,
-    documentHeight: 0,
-    scrollTop: 0,
-    windowHeight: 0,
-    windowWidth: 0
-  };
-
-  mobileWidth = 768;
-
-  tabletWidth = 1024;
+  const mobileWidth = 768;
+  const tabletWidth = 1024;
 
   //
 
-  componentDidMount() {
-    if (document) {
-      document.addEventListener(`scroll`, _.throttle(this.handleScroll), false);
-    }
-
-    if (window) {
-      window.addEventListener(`resize`, _.throttle(this.handleResize), false);
-
-      setTimeout(() => {
-        this.handleResize();
-      });
-    }
-  }
-
-  //
-
-  handleScroll = e => {
-    this.setState({
-      scrollTop: e.target.scrollingElement.scrollTop
-    });
-  };
-
-  handleResize = () => {
-    let device = `desktop`;
+  const handleResize = () => {
+    let detectedDevice = `desktop`;
 
     if (
       window.matchMedia(
-        `(min-width: ${this.mobileWidth}px) and (max-width: ${this.tabletWidth}px)`
+        `(min-width: ${mobileWidth}px) and (max-width: ${tabletWidth}px)`
       ).matches
     ) {
-      device = `tablet`;
-    } else if (
-      window.matchMedia(`(max-width: ${this.mobileWidth - 1}px)`).matches
-    ) {
-      device = `mobile`;
+      detectedDevice = `tablet`;
+    } else if (window.matchMedia(`(max-width: ${mobileWidth - 1}px)`).matches) {
+      detectedDevice = `mobile`;
     }
 
-    this.setState({
-      device,
-      documentHeight: document.documentElement.offsetHeight,
-      windowWidth: getWindowDimensions().width,
-      windowHeight: getWindowDimensions().height
-    });
+    setDevice(detectedDevice);
+    setDocumentHeight(document.documentElement.offsetHeight);
+    setWindowHeight(getWindowDimensions().height);
+    setWindowWidth(getWindowDimensions().width);
+  };
+
+  const handleScroll = e => {
+    setScrollTop(e.target.scrollingElement.scrollTop);
   };
 
   //
 
-  render() {
-    return (
-      <DocumentContext.Provider
-        value={{
-          device: this.state.device,
-          documentHeight: this.state.documentHeight,
-          scrollTop: this.state.scrollTop,
-          windowWidth: this.state.windowWidth,
-          windowHeight: this.state.windowHeight
-        }}
-      >
-        {this.props.children}
-      </DocumentContext.Provider>
-    );
-  }
-}
+  useEffect(() => {
+    if (typeof document !== `undefined` && document?.addEventListener) {
+      document.addEventListener(`scroll`, _.throttle(handleScroll), false);
+    }
+
+    if (typeof window !== `undefined` && window?.addEventListener) {
+      window.addEventListener(`resize`, _.throttle(handleResize), false);
+
+      handleResize();
+    }
+  }, []);
+
+  //
+
+  return (
+    <DocumentContext.Provider
+      value={{
+        device,
+        documentHeight,
+        scrollTop,
+        windowWidth,
+        windowHeight
+      }}
+    >
+      {children}
+    </DocumentContext.Provider>
+  );
+};
 
 DocumentProvider.propTypes = {
   children: PropTypes.node.isRequired
