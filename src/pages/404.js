@@ -1,36 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
+import Footer from "~components/Footer";
 import Layout from "~components/Layout";
 
-class NotFoundComponent extends Component {
-  state = {
-    mounted: true
-  };
+const NotFoundPage = () => {
+  return (
+    <>
+      <Layout className="not-found-page w-full relative pt-16">
+        <section className="grid">
+          <h1 className="grid-end-12 my-8 f3">404</h1>
+        </section>
+      </Layout>
 
-  componentDidMount() {
-    this.setState({
-      mounted: true
-    });
-  }
-
-  //
-
-  render() {
-    return (
-      <>
-        <Layout
-          className={`not-found w-full relative ${
-            this.state.mounted ? `mounted` : ``
-          }`}
-        >
-          <h1 className="f1">404</h1>
-        </Layout>
-      </>
-    );
-  }
-}
-
-const NotFound = () => {
-  return <NotFoundComponent />;
+      <Footer />
+    </>
+  );
 };
 
-export default NotFound;
+export default NotFoundPage;

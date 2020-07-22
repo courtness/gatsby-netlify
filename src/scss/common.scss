@@ -26,6 +26,11 @@
   height: 56.25vw;
 }
 
+.unbound {
+  max-width: none !important;
+  max-height: none !important;
+}
+
 .gpu {
   backface-visibility: hidden;
   perspective: 1000;
