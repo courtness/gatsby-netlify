@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
-import _ from "underscore";
 import { DocumentContext } from "~context/DocumentContext";
 
 const Video = ({
@@ -24,11 +23,15 @@ const Video = ({
       setLoaded(true);
 
       videoRef.current.onpause = () => {
-        videoRef.current.playing = false;
+        if (videoRef?.current) {
+          videoRef.current.playing = false;
+        }
       };
 
       videoRef.current.onplaying = () => {
-        videoRef.current.playing = true;
+        if (videoRef?.current) {
+          videoRef.current.playing = true;
+        }
       };
     }
   }, [videoRef.current]);
