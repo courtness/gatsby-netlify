@@ -1,7 +1,9 @@
 # backend:
-# name: git-gateway
-# repo: loveandmoney/sitekey
-# branch: master
+  # name: git-gateway
+  # repo: loveandmoney/sitekey
+  # branch: master
+
+local_backend: true
 
 # site_url: https://sitekey.netlify.com/
 
@@ -11,6 +13,7 @@ public_folder: uploads
 collections:
   - name: pages
     label: Pages
+    preview_path: /{{slug}}
     editor:
       preview: false
     files:
@@ -60,13 +63,13 @@ collections:
                     widget: string
 
           - label: SEO Description
-            name: description
+            name: seoDescription
             required: false
             widget: string
             hint: This is used by the description meta tag.
 
           - label: SEO Keywords
-            name: keywords
+            name: seoKeywords
             required: false
             widget: string
             hint: This is used by the keywords meta tag.
@@ -86,13 +89,13 @@ collections:
             hint: This is used both by the title meta tag and the <h1> tag in the HTML.
 
           - label: SEO Description
-            name: description
+            name: seoDescription
             required: false
             widget: string
             hint: This is used by the description meta tag.
 
           - label: SEO Keywords
-            name: keywords
+            name: seoKeywords
             required: false
             widget: string
             hint: This is used by the keywords meta tag.
@@ -112,13 +115,13 @@ collections:
             hint: This is used both by the title meta tag and the <h1> tag in the HTML.
 
           - label: SEO Description
-            name: description
+            name: seoDescription
             required: false
             widget: string
             hint: This is used by the description meta tag.
 
           - label: SEO Keywords
-            name: keywords
+            name: seoKeywords
             required: false
             widget: string
             hint: This is used by the keywords meta tag.
