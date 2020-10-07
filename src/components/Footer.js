@@ -9,7 +9,7 @@ import YouTubeIcon from "~components/svg/YouTubeIcon";
 const Footer = () => (
   <footer className="w-full relative pt-12 pb-12 bg-black text-white">
     <div className="grid">
-      <ul className="grid-end-4 relative">
+      <ul className="grid-end-3 xs:grid-end-12 relative">
         <h3 className="f5 italic">
           <Link to="/" className="inline-block py-1 hover-underline">
             logo™
@@ -17,8 +17,8 @@ const Footer = () => (
         </h3>
       </ul>
 
-      <div className="grid-end-4 relative">
-        <h4 className="mb-4 b3">Story</h4>
+      <div className="grid-end-3 xs:grid-end-6 relative xs:mt-12">
+        <h4 className="mb-4 b2">Story</h4>
 
         <ul>
           <li className="caption uppercase">
@@ -35,37 +35,19 @@ const Footer = () => (
         </ul>
       </div>
 
-      <div className="grid-end-4 relative">
-        <h4 className="mb-4 b3">Help</h4>
+      <div className="grid-end-3 xs:grid-end-12 relative xs:mt-6">
+        <h4 className="mb-4 b2">Help</h4>
 
-        <ul>
-          <li className="caption uppercase">
+        <ul className="xs:flex flex-wrap">
+          <li className="xs:w-1/2 caption uppercase">
             <Link to="/contact" className="inline-block py-1 hover-underline">
               Contact
-            </Link>
-          </li>
-
-          <li className="caption uppercase">
-            <Link to="/faq" className="inline-block py-1 hover-underline">
-              FAQ
-            </Link>
-          </li>
-
-          <li className="caption uppercase">
-            <Link to="/privacy" className="inline-block py-1 hover-underline">
-              Privacy
-            </Link>
-          </li>
-
-          <li className="caption uppercase">
-            <Link to="/terms" className="inline-block py-1 hover-underline">
-              T&amp;Cs
             </Link>
           </li>
         </ul>
       </div>
 
-      <div className="grid-end-12 flex justify-between mt-6">
+      <div className="grid-end-12 flex justify-between mt-6 xs:mt-12">
         <ul className="flex">
           <li>
             <a
@@ -118,7 +100,7 @@ const Footer = () => (
           </li>
         </ul>
 
-        <h4 className="b1">© 2020</h4>
+        <h4 className="b2">© 2020</h4>
       </div>
     </div>
   </footer>

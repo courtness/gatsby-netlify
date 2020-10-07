@@ -1,40 +1,29 @@
 import React from "react";
-import { motion } from "framer-motion";
-import PropTypes from "prop-types";
+import { PropTypes } from "prop-types";
 
-const Button = ({ className, color, onClick, text, transparent }) => (
-  <motion.div
-    className={`${className}`}
-    whileHover={{
-      scale: 1.025
-    }}
-    whileTap={{ scale: 0.975 }}
-  >
+const Button = ({ children, className, color, transparent }) => {
+  return (
     <button
       type="button"
       className={`button button--${color} ${
         transparent ? `button--transparent` : ``
-      } ${className} relative py-4 caption uppercase`}
-      onClick={onClick}
+      } ${className} relative block`}
     >
-      {text}
+      {children}
     </button>
-  </motion.div>
-);
+  );
+};
 
 Button.defaultProps = {
-  color: ``,
   className: ``,
-  onClick: () => {},
-  text: `Button`,
+  color: `white`,
   transparent: false
 };
 
 Button.propTypes = {
-  color: PropTypes.string,
+  children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  onClick: PropTypes.func,
-  text: PropTypes.string,
+  color: PropTypes.string,
   transparent: PropTypes.bool
 };
 

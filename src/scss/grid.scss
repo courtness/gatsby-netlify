@@ -1,11 +1,12 @@
 $grid_columns: 12;
-$grid_gutter: 8px;
+$grid_columns_xs: 12;
+$grid_gutter: 1.5vw;
 $grid_padding: (
-  xl: 1rem,
-  lg: 1rem,
-  md: 1rem,
-  sm: 1rem,
-  xs: 1rem,
+  xl: 3vw,
+  lg: 3vw,
+  md: 3vw,
+  sm: 6vw,
+  xs: 6vw,
 );
 
 .grid {
@@ -42,7 +43,7 @@ $grid_padding: (
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat($grid_columns, minmax(0, 1fr));
-  grid-gap: $grid_gutter / 2 $grid_gutter;
+  grid-gap: 0 $grid_gutter;
 
   &--nowrap {
     grid-auto-flow: column;
@@ -89,12 +90,6 @@ $grid_padding: (
   }
 }
 
-.no-margin--legacy {
-  @include ms-ie {
-    margin-left: 0 !important;
-  }
-}
-
 @include generate-classes($grid_columns);
 
 @include xl {
@@ -119,4 +114,74 @@ $grid_padding: (
 
 @function grid-end($count) {
   @return calc((100vw / #{$grid_columns}) * #{$count});
+}
+
+//
+
+.offgrid-left {
+  @include lg {
+    width: calc(100% + #{map-get($grid_padding, "lg")});
+    margin-left: 0 - map-get($grid_padding, "lg");
+  }
+
+  @include md {
+    width: calc(100% + #{map-get($grid_padding, "md")});
+    margin-left: 0 - map-get($grid_padding, "md");
+  }
+
+  @include sm {
+    width: calc(100% + #{map-get($grid_padding, "sm")});
+    margin-left: 0 - map-get($grid_padding, "sm");
+  }
+
+  @include xs {
+    width: calc(100% + #{map-get($grid_padding, "xs")});
+    margin-left: 0 - map-get($grid_padding, "xs");
+  }
+
+  margin-left: 0 - map-get($grid_padding, "xl");
+
+  &--no-touch {
+    @include sm {
+      width: 100%;
+      margin-left: auto;
+    }
+  }
+}
+
+.offgrid-right {
+  @include lg {
+    width: calc(100% + #{map-get($grid_padding, "lg")});
+    margin-right: 0 - map-get($grid_padding, "lg");
+  }
+
+  @include md {
+    width: calc(100% + #{map-get($grid_padding, "md")});
+    margin-right: 0 - map-get($grid_padding, "md");
+  }
+
+  @include sm {
+    width: calc(100% + #{map-get($grid_padding, "sm")});
+    margin-right: 0 - map-get($grid_padding, "sm");
+  }
+
+  @include xs {
+    width: calc(100% + #{map-get($grid_padding, "xs")});
+    margin-right: 0 - map-get($grid_padding, "xs");
+  }
+
+  margin-right: 0 - map-get($grid_padding, "xl");
+
+  &--no-touch {
+    @include sm {
+      width: 100%;
+      margin-right: auto;
+    }
+  }
+}
+
+.no-margin--legacy {
+  @include ms-ie {
+    margin-left: 0 !important;
+  }
 }

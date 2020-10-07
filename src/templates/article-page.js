@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
 // import { PropTypes } from "prop-types";
 
@@ -10,7 +11,9 @@ import Layout from "~components/Layout";
 import Newsletter from "~components/Newsletter";
 import SEO from "~components/SEO";
 
-const ContactPage = ({ data, location }) => {
+//
+
+const ArticlePage = ({ data, location }) => {
   const { frontmatter } = data.markdownRemark;
 
   return (
@@ -22,13 +25,16 @@ const ContactPage = ({ data, location }) => {
         path={location.pathname}
       />
 
-      <Layout className="contact-page w-full relative">
+      <Layout className="article-page w-full relative">
         <DummyImage />
 
-        <section className="w-full relative block py-24">
-          <article className="grid">
-            <h1 className="grid-end-12 f1 text-center">{frontmatter.title}</h1>
-          </article>
+        <section className="grid">
+          <h1 className="grid-end-12 my-8 f3">{frontmatter.title}</h1>
+
+          <div
+            className="grid-end-8"
+            dangerouslySetInnerHTML={{ __html: frontmatter.content }}
+          ></div>
         </section>
 
         <InstagramGrid />
@@ -41,15 +47,30 @@ const ContactPage = ({ data, location }) => {
   );
 };
 
-export default ContactPage;
+export default ArticlePage;
 
 export const query = graphql`
-  query ContactPage($id: String!) {
+  query ArticlePage($id: String!) {
     markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
+        content
         seoDescription
         seoKeywords
+      }
+    }
+    allMarkdownRemark(
+      filter: { frontmatter: { templateKey: { eq: "article-page" } } }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+          }
+        }
       }
     }
   }

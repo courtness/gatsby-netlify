@@ -22,13 +22,13 @@
   transform: scaleX(-1);
 }
 
-.sixteen-by-nine {
-  height: 56.25vw;
-}
-
 .unbound {
   max-width: none !important;
   max-height: none !important;
+}
+
+.sixteen-by-nine {
+  height: 56.25vw;
 }
 
 .gpu {
@@ -45,6 +45,14 @@
   width: 100%;
   position: relative;
   padding-bottom: 100%;
+  overflow: hidden;
+}
+
+.letterbox {
+  width: 100%;
+  position: relative;
+  padding-bottom: 66%;
+  overflow: hidden;
 }
 
 .border {
@@ -80,5 +88,132 @@
 .hover-underline {
   @include hoverable {
     text-decoration: underline;
+  }
+}
+
+.desktop-only {
+  @include sm {
+    display: none;
+  }
+}
+
+.touch-only {
+  @include sm {
+    display: block;
+  }
+
+  display: none;
+}
+
+.xs-only {
+  @include xs {
+    display: block;
+  }
+
+  &-flex {
+    @include xs {
+      display: flex;
+    }
+  }
+
+  display: none;
+}
+
+@for $i from 1 through 20 {
+  .w-v#{$i} {
+    width: #{$i}vw;
+  }
+
+  .m-v#{$i} {
+    margin: #{$i}vw;
+  }
+  .mt-v#{$i} {
+    margin-top: #{$i}vw;
+  }
+  .mr-v#{$i} {
+    margin-right: #{$i}vw;
+  }
+  .mb-v#{$i} {
+    margin-bottom: #{$i}vw;
+  }
+  .ml-v#{$i} {
+    margin-left: #{$i}vw;
+  }
+  .p-v#{$i} {
+    padding: #{$i}vw;
+  }
+  .pt-v#{$i} {
+    padding-top: #{$i}vw;
+  }
+  .pr-v#{$i} {
+    padding-right: #{$i}vw;
+  }
+  .pb-v#{$i} {
+    padding-bottom: #{$i}vw;
+  }
+  .pl-v#{$i} {
+    padding-left: #{$i}vw;
+  }
+}
+
+//
+// sm overrides
+
+@for $i from 1 through 20 {
+  .xs\:w-v#{$i} {
+    @include sm {
+      width: #{$i}vw;
+    }
+  }
+
+  .xs\:m-v#{$i} {
+    @include sm {
+      margin: #{$i}vw;
+    }
+  }
+  .xs\:mt-v#{$i} {
+    @include sm {
+      margin-top: #{$i}vw;
+    }
+  }
+  .xs\:mr-v#{$i} {
+    @include sm {
+      margin-right: #{$i}vw;
+    }
+  }
+  .xs\:mb-v#{$i} {
+    @include sm {
+      margin-bottom: #{$i}vw;
+    }
+  }
+  .xs\:ml-v#{$i} {
+    @include sm {
+      margin-left: #{$i}vw;
+    }
+  }
+  .xs\:p-v#{$i} {
+    @include sm {
+      padding: #{$i}vw;
+    }
+  }
+  .xs\:pt-v#{$i} {
+    @include sm {
+      padding-top: #{$i}vw;
+    }
+  }
+  .xs\:pr-v#{$i} {
+    @include sm {
+      padding-right: #{$i}vw;
+    }
+  }
+  .xs\:pb-v#{$i} {
+    @include sm {
+      padding-bottom: #{$i}vw;
+    }
+  }
+  .xs\:pl-v#{$i} {
+    @include sm {
+      padding-left: #{$i}vw;
+    }
   }
 }

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import { DocumentContext } from "~context/DocumentContext";
 
-const AppearOnScroll = ({ atTop, children, once }) => {
+const AppearOnScroll = ({ atTop, children, once, delay, slow }) => {
   const documentContext = useContext(DocumentContext);
   const containerRef = useRef();
   const [visible, setVisible] = useState(false);
@@ -13,7 +13,9 @@ const AppearOnScroll = ({ atTop, children, once }) => {
       return;
     }
 
-    window.scrollTo(0, 1);
+    setTimeout(() => {
+      window.scrollTo(0, 2);
+    }, 100);
   }, [containerRef.current]);
 
   useEffect(() => {
@@ -46,8 +48,8 @@ const AppearOnScroll = ({ atTop, children, once }) => {
     <div
       ref={containerRef}
       className={`${
-        visible ? `animation-appear` : `invisible`
-      } animation-delay-2`}
+        visible ? `animation-appear${slow ? `-slow` : ``}` : `invisible`
+      } animation-delay-${delay}`}
     >
       {computedChildren}
     </div>
@@ -56,13 +58,17 @@ const AppearOnScroll = ({ atTop, children, once }) => {
 
 AppearOnScroll.defaultProps = {
   atTop: false,
-  once: false
+  delay: 2,
+  once: false,
+  slow: false
 };
 
 AppearOnScroll.propTypes = {
   atTop: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]).isRequired,
-  once: PropTypes.bool
+  delay: PropTypes.number,
+  once: PropTypes.bool,
+  slow: PropTypes.bool
 };
 
 export default AppearOnScroll;

@@ -3,15 +3,24 @@
 
 import React from "react";
 import { graphql } from "gatsby";
+import ArticleGrid from "~components/ArticleGrid";
 import DummyImage from "~components/DummyImage";
 import Footer from "~components/Footer";
-import InstagramGrid from "~components/InstagramGrid";
 import Layout from "~components/Layout";
 import Newsletter from "~components/Newsletter";
 import SEO from "~components/SEO";
 
-const ContactPage = ({ data, location }) => {
-  const { frontmatter } = data.markdownRemark;
+const BlogPage = ({ data, location }) => {
+  const { markdownRemark, allMarkdownRemark } = data;
+  const { frontmatter } = markdownRemark;
+
+  const articles = [];
+
+  allMarkdownRemark.edges.forEach(({ node }) => {
+    // processing...
+
+    articles.push(node);
+  });
 
   return (
     <>
@@ -22,16 +31,10 @@ const ContactPage = ({ data, location }) => {
         path={location.pathname}
       />
 
-      <Layout className="contact-page w-full relative">
+      <Layout className="collections-page w-full relative">
         <DummyImage />
 
-        <section className="w-full relative block py-24">
-          <article className="grid">
-            <h1 className="grid-end-12 f1 text-center">{frontmatter.title}</h1>
-          </article>
-        </section>
-
-        <InstagramGrid />
+        <ArticleGrid articles={articles} />
 
         <Newsletter />
       </Layout>
@@ -41,15 +44,29 @@ const ContactPage = ({ data, location }) => {
   );
 };
 
-export default ContactPage;
+export default BlogPage;
 
 export const query = graphql`
-  query ContactPage($id: String!) {
+  query BlogPage($id: String!) {
     markdownRemark(id: { eq: $id }) {
       frontmatter {
         title
         seoDescription
         seoKeywords
+      }
+    }
+    allMarkdownRemark(
+      filter: { frontmatter: { templateKey: { eq: "article-page" } } }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+          }
+        }
       }
     }
   }

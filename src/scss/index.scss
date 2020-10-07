@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "../../node_modules/@glidejs/glide/dist/css/glide.core.min.css";
-
 @import "transitions.scss";
 @import "screen.scss";
 @import "grid.scss";
@@ -20,5 +18,7 @@
 
 @import "templates/404.scss";
 @import "templates/about-page.scss";
+@import "templates/article-page.scss";
+@import "templates/blog-page.scss";
 @import "templates/contact-page.scss";
 @import "templates/index-page.scss";

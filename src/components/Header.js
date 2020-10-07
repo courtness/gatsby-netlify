@@ -3,6 +3,7 @@
 import React, { useContext } from "react";
 import { Link } from "gatsby";
 import { AppContext } from "~context/AppContext";
+import CartIcon from "~components/svg/CartIcon";
 
 const Header = () => {
   const { menuActive, setMenuActive } = useContext(AppContext);
@@ -30,7 +31,7 @@ const Header = () => {
           </button>
 
           <Link to="/" className="block text-black">
-            <h2 className="b1 italic">logo™</h2>
+            <h2 className="b1">Site Name</h2>
           </Link>
         </div>
       </nav>

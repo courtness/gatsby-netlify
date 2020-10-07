@@ -3,7 +3,14 @@ import PropTypes from "prop-types";
 import Plx from "react-plx";
 import { DocumentContext } from "~context/DocumentContext";
 
-const Parallaxer = ({ atTop, children, className, visible }) => {
+const Parallaxer = ({
+  atTop,
+  children,
+  className,
+  reverse,
+  severe,
+  visible
+}) => {
   const documentContext = useContext(DocumentContext);
   const { windowHeight } = documentContext;
 
@@ -13,6 +20,14 @@ const Parallaxer = ({ atTop, children, className, visible }) => {
   if (atTop) {
     startValue = 0;
     endValue = windowHeight * -0.1;
+  }
+
+  if (reverse) {
+    endValue = -endValue;
+  }
+
+  if (severe) {
+    endValue *= 2;
   }
 
   return (
@@ -44,6 +59,8 @@ const Parallaxer = ({ atTop, children, className, visible }) => {
 Parallaxer.defaultProps = {
   atTop: false,
   className: ``,
+  reverse: false,
+  severe: false,
   visible: true
 };
 
@@ -51,6 +68,8 @@ Parallaxer.propTypes = {
   atTop: PropTypes.bool,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  reverse: PropTypes.bool,
+  severe: PropTypes.bool,
   visible: PropTypes.bool
 };
 

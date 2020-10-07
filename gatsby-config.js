@@ -29,11 +29,11 @@ function trackingPlugins() {
     });
   }
 
-  if (process.env.GATSBY_GTAG_ID) {
+  if (process.env.GATSBY_GTM_ID) {
     plugins.push({
       resolve: `gatsby-plugin-google-tagmanager`,
       options: {
-        id: process.env.GATSBY_GTAG_ID,
+        id: process.env.GATSBY_GTM_ID,
         includeInDevelopment: true,
         defaultDataLayer: {
           platform: `gatsby`
@@ -79,13 +79,14 @@ module.exports = {
     );
   },
   siteMetadata: {
-    title: `Site Title`,
-    titleTemplate: `%s - Site Title`,
-    description: `Site Title is...`,
-    keywords: `Site,keywords`,
+    title: `Gatsby Netlify`,
+    titleTemplate: `%s - Gatsby Netlify`,
+    description: `Gatsby // Netlify brochure template`,
+    keywords: `change,these,to,something,else`,
     author: `danielcourtness@gmail.com`,
-    url: ``,
-    image: `/images/site-image.svg`,
+    image: `/images/share.svg`,
+    fbAppId: ``,
+    siteUrl: `https://borkify.netlify.app`,
     twitterUsername: `@twitter`
   },
   plugins: [
@@ -93,8 +94,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Site Title`,
-        short_name: `site-title`,
+        name: `Gatsby Netlify`,
+        short_name: `gatsby-netlify`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
@@ -120,10 +121,9 @@ module.exports = {
       options: {
         printRejected: true,
         tailwind: true,
-        whitelistPatterns: [/gatsby-/, /glide/]
+        whitelistPatterns: [/button-/, /gatsby-/]
       }
     },
-    // `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-root-import`,
     {

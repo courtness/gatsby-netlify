@@ -4,8 +4,8 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "gatsby";
 import { AppContext } from "~context/AppContext";
 import { DocumentContext } from "~context/DocumentContext";
-import { useKeyPress } from "~utils/hooks";
 import Cross from "~components/svg/Cross";
+import { useKeyPress } from "~utils/hooks";
 
 const Nav = () => {
   const { menuActive, setMenuActive } = useContext(AppContext);
@@ -60,20 +60,26 @@ const Nav = () => {
 
         {menuActive && (
           <ul>
-            <li className="animation-appear-right animation-delay-1 hover-underline f3">
-              <Link to="/" className="block py-1" onClick={close}>
+            <li className="animation-appear-right animation-delay-3 hover-underline f3">
+              <Link to="/" className="block py-2" onClick={close}>
                 Home
               </Link>
             </li>
 
             <li className="animation-appear-right animation-delay-3 hover-underline f3">
-              <Link to="/about" className="block py-1" onClick={close}>
+              <Link to="/about" className="block py-2" onClick={close}>
                 About
               </Link>
             </li>
 
-            <li className="animation-appear-right animation-delay-4 hover-underline f3">
-              <Link to="/contact" className="block py-1" onClick={close}>
+            <li className="animation-appear-right animation-delay-3 hover-underline f3">
+              <Link to="/blog" className="block py-2" onClick={close}>
+                Blog
+              </Link>
+            </li>
+
+            <li className="animation-appear-right animation-delay-3 hover-underline f3">
+              <Link to="/contact" className="block py-2" onClick={close}>
                 Contact
               </Link>
             </li>

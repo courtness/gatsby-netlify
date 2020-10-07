@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-export const useMountEffect = runnable => useEffect(runnable, []);
-
 export const useInterval = (callback, delay) => {
   const savedCallback = useRef(() => {});
 
