@@ -3,7 +3,6 @@
 import React, { useContext } from "react";
 import { Link } from "gatsby";
 import { AppContext } from "~context/AppContext";
-import CartIcon from "~components/svg/CartIcon";
 
 const Header = () => {
   const { menuActive, setMenuActive } = useContext(AppContext);
