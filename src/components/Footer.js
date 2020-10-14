@@ -7,7 +7,7 @@ import LinkedInIcon from "~components/svg/LinkedInIcon";
 import YouTubeIcon from "~components/svg/YouTubeIcon";
 
 const Footer = () => (
-  <footer className="w-full relative pt-12 pb-12 bg-black text-white">
+  <footer className="footer w-full relative pt-12 pb-12 bg-black text-white">
     <div className="grid">
       <ul className="grid-end-3 xs:grid-end-12 relative">
         <h3 className="f5 italic">

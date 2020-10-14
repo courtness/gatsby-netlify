@@ -1,21 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { AppContext } from "~context/AppContext";
-// import Geolocator from "~components/Geolocator";
 
-const Layout = ({ children, className, header }) => {
-  const { headerStyle, setHeaderStyle } = useContext(AppContext);
-
-  useEffect(() => {
-    if (header !== headerStyle) {
-      setHeaderStyle(header);
-    }
-  }, [header]);
-
+const Layout = ({ children, className }) => {
   return (
     <>
-      {/* <Geolocator /> */}
-
       <main id="layout" className={`layout ${className}`}>
         {children}
       </main>
@@ -23,14 +11,9 @@ const Layout = ({ children, className, header }) => {
   );
 };
 
-Layout.defaultProps = {
-  header: `white`
-};
-
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  className: PropTypes.string.isRequired,
-  header: PropTypes.string
+  className: PropTypes.string.isRequired
 };
 
 export default Layout;

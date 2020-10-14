@@ -51,6 +51,17 @@ function trackingPlugins() {
     });
   }
 
+  if (process.env.GATSBY_SEGMENT_WRITE_KEY) {
+    plugins.push({
+      resolve: `gatsby-plugin-segment-js`,
+      options: {
+        prodKey: process.env.GATSBY_SEGMENT_WRITE_KEY,
+        devKey: process.env.GATSBY_SEGMENT_WRITE_KEY,
+        trackPage: false
+      }
+    });
+  }
+
   if (process.env.GATSBY_HOTJAR_ID && process.env.GATSBY_HOTJAR_VERSION) {
     plugins.push({
       resolve: `gatsby-plugin-hotjar`,
